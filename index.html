@@ -635,8 +635,11 @@ function openLunch(id, preset){
     <div class="field"><label for="e-gps">Number of GPs</label><input id="e-gps" type="number" min="0" value="${l.gpCount??''}"></div>
     <div class="field"><label for="e-date">Date</label><input id="e-date" type="date" value="${h(l.date)}"></div>
     <div class="field"><label for="e-time">GP slot start</label><input id="e-time" type="time" value="${h(l.time)}"></div>
-    <div class="field full"><label for="e-gpnames">GPs attending</label><input id="e-gpnames" value="${h(l.gpNames)}" placeholder="e.g. Dr Frawley, Dr Elder"></div>
     <div class="full"><span class="lbl">Who's going</span><div class="checks" style="margin-top:4px">${PEOPLE.map(p=>`<label><input type="checkbox" name="e-att" value="${p}" ${(l.attendees||[]).includes(p)?'checked':''}> ${p}</label>`).join('')}</div></div>
+  </fieldset>
+  <fieldset class="fs"><legend>GPs present</legend>
+    <div class="full checks" id="e-gpchecks">${gpChecks(l,c)}</div>
+    <div class="field full"><label for="e-gpnames">Other GPs or staff present</label><input id="e-gpnames" value="${h(l.gpNames)}" placeholder="Anyone not in the list above"></div>
   </fieldset>
   <fieldset class="fs"><legend>Dietary requirements</legend>
     <div class="full checks">${DIETS.map(d=>`<label><input type="checkbox" name="e-diet" value="${d}" ${(l.diets||[]).includes(d)?'checked':''}> ${d}</label>`).join('')}</div>
@@ -660,6 +663,12 @@ function openLunch(id, preset){
   ${l._new?'':`<div><button class="btn small danger" type="button" data-act="del-lunch">Delete this lunch</button><span id="del-confirm"></span></div>`}`;
   openSheet(l._new?'New GP lunch':(l.clinicName||'GP lunch'), body, `<button class="btn" data-close>Cancel</button><button class="btn primary" data-act="save-lunch">Save</button>`);
 }
+function gpChecks(l,c){
+  const docs=(c?.doctors||[]).map(d=>d.name), on=l.gpsPresent||[];
+  const names=[...docs,...on.filter(n=>!docs.includes(n))].sort((a,b)=>a.localeCompare(b));
+  if(!names.length) return '<span class="muted" style="font-size:.88rem">No doctors are listed for this clinic yet. Add them on the clinic page, or type names below.</span>';
+  return names.map(n=>`<label><input type="checkbox" name="e-gp" value="${h(n)}" ${on.includes(n)?'checked':''}> Dr ${h(n)}</label>`).join('');
+}
 function fuList(l){ return (l.followUps||[]).length ? (l.followUps.map(x=>`<div class="fu ${x.done?'done':''}"><input type="checkbox" data-efu="${h(x.id)}" ${x.done?'checked':''} aria-label="Done"><span>${h(x.text)}</span><button class="btn small" type="button" data-rmfu="${h(x.id)}" aria-label="Remove">✕</button></div>`).join('')) : '<div class="muted" style="font-size:.88rem">Nothing to follow up.</div>'; }
 function clinicHistory(c, exceptId){
   if(!c) return '';
@@ -674,7 +683,7 @@ function clinicHistory(c, exceptId){
 function readLunchForm(){
   const l=EDIT.l; const v=id=>$('#'+id).value.trim();
   l.clinicName=v('e-clinic'); l.address=v('e-addr'); l.status=$('#e-status').value; l.gpCount=$('#e-gps').value?+$('#e-gps').value:null;
-  l.date=$('#e-date').value; l.time=$('#e-time').value; l.gpNames=v('e-gpnames');
+  l.date=$('#e-date').value; l.time=$('#e-time').value; l.gpNames=v('e-gpnames'); l.gpsPresent=[...document.querySelectorAll('input[name=e-gp]:checked')].map(x=>x.value);
   l.attendees=[...document.querySelectorAll('input[name=e-att]:checked')].map(x=>x.value);
   l.diets=[...document.querySelectorAll('input[name=e-diet]:checked')].map(x=>x.value);
   l.dietNotes=v('e-dietnotes'); l.contactName=v('e-cname'); l.contactPhone=v('e-cphone'); l.contactEmail=v('e-cemail'); l.notes=$('#e-notes').value; l.davidNotes=$('#e-dnotes').value;
@@ -711,6 +720,7 @@ async function saveLunch(){
 }
 
 // --- invites ---
+const gpList = l => [...(l.gpsPresent||[]).map(n=>'Dr '+n), l.gpNames].filter(Boolean).join(', ');
 function slotTimes(l){
   const st=set(); const len=(st.lunchMinutes??60)*60000, tr=(st.travelMinutes??60)*60000;
   const s=melToUtc(l.date,l.time||'12:30'); return { t1:s-tr, s, e:s+len, t2:s+len+tr };
@@ -718,7 +728,7 @@ function slotTimes(l){
 function recipients(l){ const st=set(); const to=[]; if(st.davidEmail) to.push(st.davidEmail); if((l.attendees||[]).includes('Eliza Doumakis') && st.elizaEmail) to.push(st.elizaEmail); return to; }
 function detailsText(l){
   const c=S.clinics.get(l.clinicId);
-  const lines=[`GP lunch – ${l.clinicName}`, `When: ${fmtDate(l.date,{weekday:'long',day:'numeric',month:'long',year:'numeric'})}, ${fmtTime(l.time)} (1 hr GP slot)`, `Address: ${l.address||'TBC'}`, `Map: ${mapUrl(l.clinicName,l.address)}`, `Number of GPs: ${l.gpCount||'TBC'}${l.gpNames?' – '+l.gpNames:''}`, `Dietary: ${(l.diets||[]).join(', ')||'TBC'}${l.dietNotes?' – '+l.dietNotes:''}`, `Attending: ${(l.attendees||[]).join(', ')||'TBC'}`];
+  const lines=[`GP lunch – ${l.clinicName}`, `When: ${fmtDate(l.date,{weekday:'long',day:'numeric',month:'long',year:'numeric'})}, ${fmtTime(l.time)} (1 hr GP slot)`, `Address: ${l.address||'TBC'}`, `Map: ${mapUrl(l.clinicName,l.address)}`, `Number of GPs: ${l.gpCount||'TBC'}${gpList(l)?' – '+gpList(l):''}`, `Dietary: ${(l.diets||[]).join(', ')||'TBC'}${l.dietNotes?' – '+l.dietNotes:''}`, `Attending: ${(l.attendees||[]).join(', ')||'TBC'}`];
   if(l.contactName||l.contactPhone) lines.push(`Clinic contact: ${[l.contactName,l.contactPhone,l.contactEmail].filter(Boolean).join(' · ')}`);
   if(c) lines.push(`Referrals from this practice: ${c.refTotal||0} (${tierOf(c)})`);
   if(l.notes) lines.push('', 'Notes: '+l.notes);
@@ -885,7 +895,7 @@ document.addEventListener('change', async e=>{
   if(t.dataset.flyer){ const c=S.clinics.get(t.dataset.flyer); if(await save('clinics/'+c.id,{flyerDone:t.checked},true)){ c.flyerDone=t.checked; toast(t.checked?'Marked dropped off':'Moved back to the list'); render(); } return; }
   if(t.dataset.fu){ const [lid,fid]=t.dataset.fu.split('|'); const l=S.lunches.get(lid); const fus=(l.followUps||[]).map(x=>x.id===fid?{...x,done:t.checked}:x); if(await save('lunches/'+lid,{followUps:fus},true)){ l.followUps=fus; render(); } return; }
   if(t.dataset.efu){ EDIT.l.followUps=EDIT.l.followUps.map(x=>x.id===t.dataset.efu?{...x,done:t.checked}:x); $('#e-fus').innerHTML=fuList(EDIT.l); return; }
-  if(t.id==='e-clinic'){ const c=[...S.clinics.values()].find(c=>c.name.toLowerCase()===t.value.trim().toLowerCase()); if(c){ if(!$('#e-addr').value) $('#e-addr').value=c.address||''; if(!$('#e-cphone').value) $('#e-cphone').value=c.phone||''; if(!$('#e-cemail').value) $('#e-cemail').value=c.email||''; if(!$('#e-cname').value) $('#e-cname').value=c.contact||''; } updateMap(); }
+  if(t.id==='e-clinic'){ const c=[...S.clinics.values()].find(c=>c.name.toLowerCase()===t.value.trim().toLowerCase()); if(c){ if(!$('#e-addr').value) $('#e-addr').value=c.address||''; if(!$('#e-cphone').value) $('#e-cphone').value=c.phone||''; if(!$('#e-cemail').value) $('#e-cemail').value=c.email||''; if(!$('#e-cname').value) $('#e-cname').value=c.contact||''; } $('#e-gpchecks').innerHTML=gpChecks(EDIT.l,c); updateMap(); }
   if(t.id==='e-addr') updateMap();
   if(t.id==='e-date' && t.value && OUTREACH.concat(['Not contacted']).includes($('#e-status').value)){ $('#e-status').value='Booked'; toast('Status set to Booked'); }
   if(['e-status','e-date','e-time','e-gps'].includes(t.id) || t.name==='e-att' || t.name==='e-diet'){ readLunchForm(); $('#e-invite').innerHTML=inviteBox(EDIT.l); }

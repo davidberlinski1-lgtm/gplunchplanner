@@ -9,3 +9,5 @@ supabase/seed-addresses.sql
 tools/addresses.tsv
 tools/need_addresses.json
 supabase/merge-keys.sql
+supabase/seed-doctors.sql
+tools/doctors.json
