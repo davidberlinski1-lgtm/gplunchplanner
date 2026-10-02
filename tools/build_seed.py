@@ -23,6 +23,7 @@ ALIAS = {
     'Comprehensive Family Health Care Oakleigh East': 'Comprehensive Family Healthcare Oakleigh East',
     'Comprehensive Family Healthcare': 'Comprehensive Family Healthcare Oakleigh East',
     'Eastbound Clinic': 'Eastbound Medical Clinic',
+    'Keys Health Service': 'Keys Medical Centre',
     'Jasper Medical Bentleigh': 'Jasper Medical',
     'Jasper Medical Life Long Care': 'Jasper Medical',
     'My Clinic Prahran': 'MyClinic Prahran',
