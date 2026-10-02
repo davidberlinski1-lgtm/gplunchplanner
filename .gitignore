@@ -3,3 +3,5 @@ __pycache__/
 *.csv
 # Referral data stays on this computer; run it in Supabase, don't publish it
 supabase/seed-referrals.sql
+supabase/seed-lunches.sql
+tools/build_lunches.py
