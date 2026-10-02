@@ -178,6 +178,11 @@ def work(c):
     return c['id'], res
 
 
+# Clinics whose name is too generic to be sure the website found is theirs.
+EXCLUDE = {'atticus-health', 'medi7-medical-centre', 'ashwood-family-practice', 'the-toorak-centre',
+           'langmore-general-practice', 'hola-health', 'better-health-network', 'medical-one', 'bentleigh-east'}
+
+
 def same(a, b):
     """'John Smith' vs 'J Smith' / 'Smith' / 'John A Smith'."""
     a, b = a.lower().replace('.', '').split(), b.lower().replace('.', '').split()
@@ -211,8 +216,9 @@ if __name__ == '__main__':
     stats = {'site': 0, 'docs': 0, 'clinics_with_docs': 0}
     for i, c in sorted(clinics.items()):
         r = cache.get(i) or {}
-        if not r.get('website'):
+        if not r.get('website') or i in EXCLUDE:
             continue
+        r['names'] = list(dict.fromkeys(re.sub(r'\s+(Credentials|Facility).*$', '', n) for n in r.get('names', [])))
         stats['site'] += 1
         have = [d['name'] for d in c.get('doctors') or []]
         new = [{'name': n, 'refs': 0, 'years': {}, 'last': None, 'source': 'Clinic website', 'web': True}
