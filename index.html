@@ -237,12 +237,12 @@ const OUTREACH = ['Not contacted','To email','Emailed – awaiting reply','Calle
 const BOOKED = ['Booked','Confirmed'];
 const DIETS = ['None','Vegetarian','Vegan','Halal','Kosher','No pork','No beef','No seafood','No sushi','Fish only','Meat','Gluten free','Dairy free','Nut allergy','Healthy options'];
 const PEOPLE = ['David Berlinski','Eliza Doumakis'];
-const TABS = [['lunches','GP lunches'],['calendar','Calendar'],['referrals','Referrals'],['clinics','Clinics & visits'],['prospects','Not contacted'],['flyers','Flyers'],['todo','To-do'],['settings','Settings & handover']];
+const TABS = [['lunches','GP lunches'],['calendar','Calendar'],['referrals','Referrals'],['clinics','Clinics & visits'],['prospects','Not contacted'],['flyers','Flyers'],['todo','To-do'],['payments','Payments'],['settings','Settings & handover']];
 const YEARS = ['2024','2025','2026'];
 
 // ---------- state ----------
 const S = { clinics:new Map(), lunches:new Map(), todos:new Map(), settings:{}, loaded:{c:0,l:0,t:0,s:0}, db:null, canWrite:true, tab:'lunches',
-  f:{ lunch:'upcoming', lperson:'', lq:'', refMode:'practices', tier:'', region:'', rq:'', cq:'', cregion:'', cvisit:'', pregion:'', fshow:'open', calY:0, calM:0, sort:{k:'refTotal',d:-1}, csort:{k:'name',d:1} } };
+  f:{ lunch:'upcoming', lperson:'', lq:'', refMode:'practices', tier:'', region:'', rq:'', cq:'', cregion:'', cvisit:'', pregion:'', fshow:'open', payMonth:'', calY:0, calM:0, sort:{k:'refTotal',d:-1}, csort:{k:'name',d:1} } };
 try{ const t = localStorage.getItem('gpl-tab'); if(t && TABS.some(x=>x[0]===t)) S.tab=t; }catch(e){}
 if (location.hash && TABS.some(x=>x[0]===location.hash.slice(1))) S.tab = location.hash.slice(1);
 
@@ -347,6 +347,7 @@ async function start(sb){
   if(S.db) return;
   const db=S.db=makeDb(sb);
   const so=$('#signout'); so.hidden=false; so.onclick=()=>sb.auth.signOut();
+  sb.auth.getUser().then(({data})=>{ S.me=(data?.user?.email||'').toLowerCase(); });
   const sp=$('#setpw'); sp.hidden=false; sp.onclick=async()=>{ const {data}=await sb.auth.getUser(); openPassword(sb, data?.user?.email||'your email'); };
   $('#main').innerHTML='<div class="empty-state">Loading clinics, lunches and to-dos…</div>';
   const {data:allowed,error}=await sb.rpc('is_allowed');
@@ -384,7 +385,7 @@ function renderTabsOnly(){
 function render(){
   renderTabsOnly();
   if(!(S.loaded.c&&S.loaded.l&&S.loaded.t&&S.loaded.s)) { if(S.db) $('#main').innerHTML='<div class="empty-state">Loading clinics, lunches and to-dos…</div>'; return; }
-  const v = {lunches:vLunches,calendar:vCalendar,referrals:vReferrals,clinics:vClinics,prospects:vProspects,flyers:vFlyers,todo:vTodo,settings:vSettings}[S.tab];
+  const v = {lunches:vLunches,calendar:vCalendar,referrals:vReferrals,clinics:vClinics,prospects:vProspects,flyers:vFlyers,todo:vTodo,payments:vPayments,settings:vSettings}[S.tab];
   const keepFocus = document.activeElement && document.activeElement.id; const pos = document.activeElement?.selectionStart;
   $('#main').innerHTML = `<section class="view">${v()}</section>`;
   if(keepFocus){ const el=document.getElementById(keepFocus); if(el){ el.focus(); try{ if(pos!=null) el.setSelectionRange(pos,pos);}catch(e){} } }
@@ -436,7 +437,7 @@ function lunchCard(l){
       ${fu.length?`<div class="meta"><span>☐ ${h(fu[0].text)}${fu.length>1?` (+${fu.length-1} more)`:''}</span></div>`:''}
     </div>
     <div class="side">${statusPill(l.status)}<div class="tags">${(l.attendees||[]).map(p=>`<span class="tag ${p.startsWith('Eliza')?'eliza':'david'}">${h(p.split(' ')[0])}</span>`).join('')}</div>
-      ${needsInvite?'<span class="flag">Invite not sent</span>':''}${needsEliza?'<span class="flag">Email Eliza</span>':''}</div>
+      ${needsInvite?'<span class="flag">Invite not sent</span>':''}${needsEliza?'<span class="flag">Email Eliza</span>':''}${payable(l)&&!(l.pay&&l.pay.approvedAt)?'<span class="flag">Pay to approve</span>':''}</div>
   </button>`;
 }
 
@@ -553,6 +554,7 @@ function autoChecks(){
     if(BOOKED.includes(l.status) && (!l.date||l.date>=t) && (!l.gpCount || !(l.diets||[]).length)) out.push({l, text:`Confirm ${!l.gpCount?'GP numbers':''}${!l.gpCount&&!(l.diets||[]).length?' and ':''}${!(l.diets||[]).length?'dietaries':''} for ${n}`});
     if((l.attendees||[]).includes('Eliza Doumakis') && BOOKED.includes(l.status) && !l.elizaEmailedAt) out.push({l, text:`Email Eliza the details for ${n}`});
     if(BOOKED.includes(l.status) && l.date && l.date<t) out.push({l, text:`${n} was on ${fmtDate(l.date,{day:'numeric',month:'short'})} – mark completed and add notes`});
+    if(payable(l) && !(l.pay&&l.pay.approvedAt)) out.push({l, text:`Approve Eliza's payment for ${n} (${fmtDate(l.date,{day:'numeric',month:'short'})})`});
     if(BOOKED.includes(l.status) && !(l.attendees||[]).length) out.push({l, text:`Allocate who's attending ${n}`});
   }
   return out;
@@ -586,6 +588,10 @@ function vSettings(){
     <div class="field"><label for="s-host">Outlook type</label><select id="s-host"><option value="office" ${st.outlookHost!=='live'?'selected':''}>Work / Microsoft 365 (outlook.office.com)</option><option value="live" ${st.outlookHost==='live'?'selected':''}>Personal (outlook.com)</option></select></div>
     <div class="field"><label for="s-travel">Travel time each way (minutes)</label><input id="s-travel" type="number" min="0" step="15" value="${st.travelMinutes??60}"></div>
     <div class="field"><label for="s-len">GP lunch length (minutes)</label><input id="s-len" type="number" min="15" step="15" value="${st.lunchMinutes??60}"></div>
+    <h3 class="full" style="margin-top:6px">Eliza's GP lunch pay</h3>
+    <div class="field"><label for="s-ehours">Hours per lunch</label><input id="s-ehours" type="number" min="0" step="0.25" value="${st.elizaHours??1.5}"></div>
+    <div class="field"><label for="s-erate">Hourly rate ($)</label><input id="s-erate" type="number" min="0" step="0.01" value="${st.elizaRate??152.75}"></div>
+    <div class="field full"><label for="s-approvers">Who can approve payments (emails)</label><input id="s-approvers" value="${h(st.approverEmails||'davidberlinski1@gmail.com')}"></div>
     <h3 class="full" style="margin-top:6px">Referral tiers</h3>
     <div class="field"><label for="s-ph">Practice: High from</label><input id="s-ph" type="number" min="1" value="${st.practiceHigh??15}"></div>
     <div class="field"><label for="s-pm">Practice: Medium from</label><input id="s-pm" type="number" min="1" value="${st.practiceMedium??5}"></div>
@@ -660,6 +666,7 @@ function openLunch(id, preset){
     <div class="full" style="display:flex;gap:8px"><input id="e-newfu" class="search" placeholder="Add a follow-up (e.g. rebook for March, send flyer)"><button class="btn small" type="button" data-act="add-fu">Add</button></div>
   </fieldset>
   <div id="e-invite">${inviteBox(l)}</div>
+  <div id="e-pay">${payBox(l)}</div>
   ${l._new?'':`<div><button class="btn small danger" type="button" data-act="del-lunch">Delete this lunch</button><span id="del-confirm"></span></div>`}`;
   openSheet(l._new?'New GP lunch':(l.clinicName||'GP lunch'), body, `<button class="btn" data-close>Cancel</button><button class="btn primary" data-act="save-lunch">Save</button>`);
 }
@@ -720,6 +727,47 @@ async function saveLunch(){
 }
 
 // --- invites ---
+// ----- Eliza's GP lunch pay -----
+const ELIZA='Eliza Doumakis';
+const payCfg = () => ({hours:+(set().elizaHours??1.5), rate:+(set().elizaRate??152.75)});
+const payAmount = (hrs,rate) => Math.round(hrs*rate*100)/100;
+const money = n => '$'+Number(n).toLocaleString('en-AU',{minimumFractionDigits:2,maximumFractionDigits:2});
+const approvers = () => (set().approverEmails||'davidberlinski1@gmail.com').toLowerCase().split(/[,;\s]+/).filter(Boolean);
+const canApprove = () => approvers().includes(S.me||'');
+const payable = l => l.status==='Completed' && (l.attendees||[]).includes(ELIZA);
+const payOf = l => l.pay&&l.pay.approvedAt ? l.pay : {...payCfg(), amount:payAmount(payCfg().hours,payCfg().rate)};
+const monthName = m => { const [y,mo]=m.split('-').map(Number); return new Date(y,mo-1,1).toLocaleDateString('en-AU',{month:'long',year:'numeric'}); };
+function payBox(l){
+  if(!(l.attendees||[]).includes(ELIZA)) return '';
+  const p=payOf(l); const sum=`${p.hours} hours × ${money(p.rate)} = <b>${money(p.amount)}</b>`;
+  if(l.status!=='Completed') return `<div class="panel"><h3>Eliza's payment</h3><div class="muted" style="font-size:.9rem">${sum}. This can be approved once the lunch is marked Completed.</div></div>`;
+  if(l.pay&&l.pay.approvedAt) return `<div class="invite-box"><h3>Eliza's payment <span class="pill s-done">Approved</span></h3><div>${sum}</div><div class="muted" style="font-size:.85rem">Approved by ${h(l.pay.approvedBy||'')} on ${fmtDate(l.pay.approvedAt,{day:'numeric',month:'short',year:'numeric'})}. Goes on her ${monthName(l.pay.poMonth)} purchase order at the monthly payrun.</div>${canApprove()?'<div class="row"><button class="btn small" type="button" data-act="unapprove-pay">Undo approval</button></div>':''}</div>`;
+  return `<div class="invite-box"><h3>Eliza's payment <span class="pill s-wait">Awaiting approval</span></h3><div>${sum}</div>${canApprove()?'<div class="row"><button class="btn primary" type="button" data-act="approve-pay">Approve payment</button></div>':`<div class="muted" style="font-size:.85rem">Only ${h(approvers().join(', '))} can approve this.</div>`}</div>`;
+}
+function vPayments(){
+  const all=[...S.lunches.values()].filter(payable);
+  const months=[...new Set(all.map(l=>(l.pay&&l.pay.poMonth)||(l.date||'').slice(0,7)).filter(Boolean).concat(todayStr().slice(0,7)))].sort().reverse();
+  if(!months.includes(S.f.payMonth)) S.f.payMonth=todayStr().slice(0,7);
+  const m=S.f.payMonth; const rows=all.filter(l=>((l.pay&&l.pay.poMonth)||(l.date||'').slice(0,7))===m).sort((a,b)=>(a.date||'').localeCompare(b.date||''));
+  const ok=rows.filter(l=>l.pay&&l.pay.approvedAt), wait=rows.filter(l=>!(l.pay&&l.pay.approvedAt));
+  const tot=ok.reduce((n,l)=>n+l.pay.amount,0), hrs=ok.reduce((n,l)=>n+l.pay.hours,0);
+  const waitingAll=all.filter(l=>!(l.pay&&l.pay.approvedAt)).length;
+  return `<div class="head-row"><div><h2>Payments</h2><p class="lede">Eliza Doumakis is paid ${payCfg().hours} hours at ${money(payCfg().rate)} an hour for each GP lunch she attends. A lunch appears here once it is marked Completed with Eliza ticked as attending; approved shifts go on her purchase order for that month at the payrun.</p></div></div>
+  <div class="stats">
+    <div class="stat"><div class="l">Approved · ${h(monthName(m))}</div><div class="n">${money(tot)}</div><div class="s">${ok.length} lunch${ok.length===1?'':'es'} · ${hrs} hours</div></div>
+    <div class="stat"><div class="l">Awaiting approval</div><div class="n">${waitingAll}</div><div class="s">Across all months</div></div>
+  </div>
+  <div class="filters"><select class="sel" id="f-paymonth" data-fsel="payMonth" aria-label="Month">${months.map(x=>`<option value="${x}" ${x===m?'selected':''}>${h(monthName(x))}</option>`).join('')}</select>
+    <button class="btn" data-act="pay-csv" ${ok.length?'':'disabled'}>Download ${h(monthName(m))} for the payrun</button></div>
+  ${rows.length?`<div class="tablewrap"><table><thead><tr><th>Clinic</th><th>Date</th><th class="num">Hours</th><th class="num">Rate</th><th class="num">Amount</th><th>Status</th></tr></thead><tbody>${rows.map(l=>{const p=payOf(l); const a=l.pay&&l.pay.approvedAt; return `<tr data-open-lunch="${h(l.id)}"><td><b>${h(l.clinicName)}</b></td><td class="yr">${fmtDate(l.date,{day:'numeric',month:'short',year:'numeric'})}</td><td class="num">${p.hours}</td><td class="num">${money(p.rate)}</td><td class="num"><b>${money(p.amount)}</b></td><td>${a?`<span class="pill s-done">Approved</span><span class="sub">${h(l.pay.approvedBy||'')} · ${fmtDate(l.pay.approvedAt,{day:'numeric',month:'short'})}</span>`:'<span class="pill s-wait">Awaiting approval</span>'}</td></tr>`;}).join('')}</tbody></table></div>`:`<div class="empty-state">No completed lunches with Eliza attending in ${h(monthName(m))}.</div>`}
+  ${wait.length&&!canApprove()?`<div class="muted" style="font-size:.85rem">Only ${h(approvers().join(', '))} can approve payments.</div>`:''}`;
+}
+function payCsv(){
+  const m=S.f.payMonth; const rows=[...S.lunches.values()].filter(l=>payable(l)&&l.pay&&l.pay.approvedAt&&l.pay.poMonth===m).sort((a,b)=>(a.date||'').localeCompare(b.date||''));
+  const q=v=>'"'+String(v??'').replace(/"/g,'""')+'"';
+  const lines=[['Practitioner','Month','Date','Description','Quantity','UnitAmount','Amount','ApprovedBy','ApprovedAt','LunchId'].join(',')].concat(rows.map(l=>[ELIZA,m,l.date,`GP lunch - ${l.clinicName} - ${fmtDate(l.date,{day:'numeric',month:'short',year:'numeric'})}`,l.pay.hours,l.pay.rate.toFixed(2),l.pay.amount.toFixed(2),l.pay.approvedBy,l.pay.approvedAt,l.id].map(q).join(',')));
+  const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([lines.join('\r\n')+'\r\n'],{type:'text/csv'})); a.download=`gp-lunch-pay-${m}.csv`; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+}
 const gpList = l => [...(l.gpsPresent||[]).map(n=>'Dr '+n), l.gpNames].filter(Boolean).join(', ');
 function slotTimes(l){
   const st=set(); const len=(st.lunchMinutes??60)*60000, tr=(st.travelMinutes??60)*60000;
@@ -878,6 +926,11 @@ document.addEventListener('click', async e=>{
   if(a==='copy-details'){ copy(detailsText(EDIT.l)); }
   if(a==='copy-eliza'){ const m=elizaEmail(EDIT.l); copy(`To: ${m.to}\nSubject: ${m.subject}\n\n${m.body}`); }
   if(a==='mark-invite' || a==='mark-eliza'){ const field=a==='mark-invite'?'inviteSentAt':'elizaEmailedAt'; const stamp=new Date().toLocaleDateString('en-AU',{day:'numeric',month:'short'}); const l=S.lunches.get(EDIT.l.id); if(!l){ toast('Save the lunch first'); return; } if(await save('lunches/'+l.id,{[field]:stamp},true)){ EDIT.l[field]=stamp; l[field]=stamp; $('#e-invite').innerHTML=inviteBox(EDIT.l); toast('Marked as sent'); } }
+  if(a==='approve-pay' || a==='unapprove-pay'){ const l=S.lunches.get(EDIT.l.id); if(!canApprove()){ toast('Only '+approvers().join(', ')+' can approve payments'); return; }
+    if(!l || !payable(l)){ toast('Save the lunch as Completed with Eliza attending first'); return; }
+    const c=payCfg(); const pay = a==='approve-pay' ? {hours:c.hours,rate:c.rate,amount:payAmount(c.hours,c.rate),approvedBy:S.me,approvedAt:todayStr(),poMonth:(l.date||todayStr()).slice(0,7)} : null;
+    if(await save('lunches/'+l.id,{pay},true)){ l.pay=pay; EDIT.l.pay=pay; $('#e-pay').innerHTML=payBox(EDIT.l); toast(pay?'Payment approved':'Approval removed'); } }
+  if(a==='pay-csv') payCsv();
   if(a==='new-clinic') openNewClinic();
   if(a==='save-new-clinic') saveNewClinic();
   if(a==='add-doc'){ const n=$('#c-newdoc').value.trim().replace(/^dr\.?\s+/i,''); if(!n) return; const c=S.clinics.get(S._clinic); const docs=[...(c.doctors||[]),{name:n,refs:0,years:{},last:null,source:'Added in planner',web:false}]; if(await save('clinics/'+c.id,{doctors:docs},true)){ c.doctors=docs; openClinic(c.id); } }
@@ -898,7 +951,7 @@ document.addEventListener('change', async e=>{
   if(t.id==='e-clinic'){ const c=[...S.clinics.values()].find(c=>c.name.toLowerCase()===t.value.trim().toLowerCase()); if(c){ if(!$('#e-addr').value) $('#e-addr').value=c.address||''; if(!$('#e-cphone').value) $('#e-cphone').value=c.phone||''; if(!$('#e-cemail').value) $('#e-cemail').value=c.email||''; if(!$('#e-cname').value) $('#e-cname').value=c.contact||''; } $('#e-gpchecks').innerHTML=gpChecks(EDIT.l,c); updateMap(); }
   if(t.id==='e-addr') updateMap();
   if(t.id==='e-date' && t.value && OUTREACH.concat(['Not contacted']).includes($('#e-status').value)){ $('#e-status').value='Booked'; toast('Status set to Booked'); }
-  if(['e-status','e-date','e-time','e-gps'].includes(t.id) || t.name==='e-att' || t.name==='e-diet'){ readLunchForm(); $('#e-invite').innerHTML=inviteBox(EDIT.l); }
+  if(['e-status','e-date','e-time','e-gps'].includes(t.id) || t.name==='e-att' || t.name==='e-diet'){ readLunchForm(); $('#e-invite').innerHTML=inviteBox(EDIT.l); const pb=$('#e-pay'); if(pb) pb.innerHTML=payBox(EDIT.l); }
 });
 function updateMap(){ const n=$('#e-clinic').value.trim(), a=$('#e-addr').value.trim(); $('#e-maplink').innerHTML=(n||a)?`<a href="${mapUrl(n,a)}" target="_blank" rel="noopener">Open in Google Maps ↗</a>`:''; }
 let inT=null;
@@ -908,7 +961,7 @@ document.addEventListener('submit', async e=>{
   if(e.target.id==='clinic-form') saveClinicForm();
   if(e.target.id==='newclinic-form') saveNewClinic();
   if(e.target.id==='todo-form') document.querySelector('[data-act="save-todo"]').click();
-  if(e.target.id==='settings-form'){ const n=id=>+$('#'+id).value; const upd={davidEmail:$('#s-david').value.trim(),elizaEmail:$('#s-eliza').value.trim(),outlookHost:$('#s-host').value,travelMinutes:n('s-travel'),lunchMinutes:n('s-len'),practiceHigh:n('s-ph'),practiceMedium:n('s-pm'),doctorHigh:n('s-dh'),doctorMedium:n('s-dm'),updatedAt:todayStr()}; if(upd.practiceMedium>=upd.practiceHigh||upd.doctorMedium>=upd.doctorHigh){ toast('“Medium from” must be lower than “High from”'); return; } if(await save('settings/main',{...S.settings,...upd})){ toast('Settings saved'); } }
+  if(e.target.id==='settings-form'){ const n=id=>+$('#'+id).value; const upd={davidEmail:$('#s-david').value.trim(),elizaEmail:$('#s-eliza').value.trim(),outlookHost:$('#s-host').value,travelMinutes:n('s-travel'),lunchMinutes:n('s-len'),practiceHigh:n('s-ph'),practiceMedium:n('s-pm'),doctorHigh:n('s-dh'),doctorMedium:n('s-dm'),elizaHours:n('s-ehours'),elizaRate:n('s-erate'),approverEmails:canApprove()?$('#s-approvers').value.trim().toLowerCase():(S.settings.approverEmails||'davidberlinski1@gmail.com'),updatedAt:todayStr()}; if(upd.practiceMedium>=upd.practiceHigh||upd.doctorMedium>=upd.doctorHigh){ toast('“Medium from” must be lower than “High from”'); return; } if(await save('settings/main',{...S.settings,...upd})){ toast('Settings saved'); } }
 });
 document.addEventListener('keydown', e=>{ if(e.key==='Escape' && $('.overlay')) closeSheet(); if(e.key==='Enter' && e.target.id==='e-newfu'){ e.preventDefault(); document.querySelector('[data-act="add-fu"]').click(); } });
 
