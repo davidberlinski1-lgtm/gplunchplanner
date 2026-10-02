@@ -645,6 +645,10 @@ function openLunch(id, preset){
     <div class="full checks">${DIETS.map(d=>`<label><input type="checkbox" name="e-diet" value="${d}" ${(l.diets||[]).includes(d)?'checked':''}> ${d}</label>`).join('')}</div>
     <div class="field full"><label for="e-dietnotes">Dietary notes</label><input id="e-dietnotes" value="${h(l.dietNotes)}" placeholder="e.g. Dr Vuong eats fish and vegetarian only"></div>
   </fieldset>
+  <fieldset class="fs"><legend>Notes</legend>
+    <div class="field full"><label for="e-dnotes">Notes from this lunch</label><textarea id="e-dnotes" style="min-height:110px" placeholder="Who attended, what they asked about, referral interest, what to bring next time">${h(l.davidNotes)}</textarea></div>
+    <div class="full"><span class="lbl">From previous visits</span>${hist||'<div class="muted" style="font-size:.88rem">No earlier notes for this clinic.</div>'}</div>
+  </fieldset>
   <fieldset class="fs"><legend>Contact</legend>
     <div class="field"><label for="e-cname">Contact person</label><input id="e-cname" value="${h(l.contactName)}" placeholder="Practice manager / reception"></div>
     <div class="field"><label for="e-cphone">Phone</label><input id="e-cphone" value="${h(l.contactPhone)}"></div>
@@ -654,10 +658,6 @@ function openLunch(id, preset){
   <fieldset class="fs"><legend>To follow up</legend>
     <div class="full" id="e-fus">${fuList(l)}</div>
     <div class="full" style="display:flex;gap:8px"><input id="e-newfu" class="search" placeholder="Add a follow-up (e.g. rebook for March, send flyer)"><button class="btn small" type="button" data-act="add-fu">Add</button></div>
-  </fieldset>
-  <fieldset class="fs"><legend>Notes</legend>
-    <div class="field full"><label for="e-dnotes">Notes from this lunch</label><textarea id="e-dnotes" style="min-height:110px" placeholder="Who attended, what they asked about, referral interest, what to bring next time">${h(l.davidNotes)}</textarea></div>
-    <div class="full"><span class="lbl">From previous visits</span>${hist||'<div class="muted" style="font-size:.88rem">No earlier notes for this clinic.</div>'}</div>
   </fieldset>
   <div id="e-invite">${inviteBox(l)}</div>
   ${l._new?'':`<div><button class="btn small danger" type="button" data-act="del-lunch">Delete this lunch</button><span id="del-confirm"></span></div>`}`;
