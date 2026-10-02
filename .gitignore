@@ -5,3 +5,6 @@ __pycache__/
 supabase/seed-referrals.sql
 supabase/seed-lunches.sql
 tools/build_lunches.py
+supabase/seed-addresses.sql
+tools/addresses.tsv
+tools/need_addresses.json
