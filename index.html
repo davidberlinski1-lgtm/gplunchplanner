@@ -1,0 +1,865 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>:root{box-sizing:border-box}body{margin:0;padding:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Toolbox GP Lunch Planner</title>
+<link rel="icon" href="data:image/png;base64,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"><link rel="apple-touch-icon" href="data:image/png;base64,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">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Figtree:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: sticky header with tab strip; each tab is a work surface (summary strip → filters → list/table); editors open as a side sheet (full screen on phones). */
+:root{
+  --bg:#f3f5f4; --surface:#ffffff; --sunk:#e8ecea; --line:#d5dcd9; --fg:#18211f; --muted:#5b6965;
+  --accent:#1d6b62; --accent-ink:#ffffff; --accent-soft:#d9ece8;
+  --high:#1f7a3f; --high-bg:#dcf0e2; --med:#9a6200; --med-bg:#fbecc9; --low:#4b5a78; --low-bg:#e3e8f3; --none:#6c7471; --none-bg:#eceeed;
+  --warn:#b0451c; --warn-bg:#fbe4da;
+  --display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body:"Figtree", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#111816; --surface:#18211f; --sunk:#0d1312; --line:#2c3835; --fg:#e6ecea; --muted:#97a6a1;
+  --accent:#5cc0b2; --accent-ink:#06201c; --accent-soft:#183a35;
+  --high:#6fd08f; --high-bg:#173726; --med:#f0bb52; --med-bg:#3a2c0f; --low:#a9b8db; --low-bg:#232c40; --none:#a0aaa6; --none-bg:#232b29;
+  --warn:#f39a76; --warn-bg:#3d2016; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#111816; --surface:#18211f; --sunk:#0d1312; --line:#2c3835; --fg:#e6ecea; --muted:#97a6a1;
+  --accent:#5cc0b2; --accent-ink:#06201c; --accent-soft:#183a35;
+  --high:#6fd08f; --high-bg:#173726; --med:#f0bb52; --med-bg:#3a2c0f; --low:#a9b8db; --low-bg:#232c40; --none:#a0aaa6; --none-bg:#232b29;
+  --warn:#f39a76; --warn-bg:#3d2016; color-scheme:dark }
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.5}
+a{color:var(--accent)}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:16px}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:14px 8px}
+.brand h1{font-family:var(--display);font-weight:700;font-size:1.35rem;margin:0;letter-spacing:-.01em;text-wrap:balance}
+.brand small{display:block;color:var(--muted);font-size:.8rem;font-weight:500}
+.sync{font-size:.75rem;color:var(--muted);white-space:nowrap}
+.sync b{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--none);margin-right:6px;vertical-align:middle}
+.sync.on b{background:var(--high)}
+nav.tabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding-bottom:0}
+nav.tabs::-webkit-scrollbar{display:none}
+nav.tabs button{border:0;background:none;padding:10px 12px;border-bottom:3px solid transparent;color:var(--muted);font-weight:600;white-space:nowrap;cursor:pointer}
+nav.tabs button[aria-selected="true"]{color:var(--fg);border-color:var(--accent)}
+nav.tabs .count{font-family:var(--mono);font-size:.72rem;background:var(--sunk);border-radius:20px;padding:1px 6px;margin-left:5px;color:var(--muted)}
+main{padding-block:20px 60px}
+section.view{display:flex;flex-direction:column;gap:16px}
+h2{font-family:var(--display);font-weight:700;font-size:1.5rem;margin:0;letter-spacing:-.01em}
+h3{font-family:var(--display);font-weight:500;font-size:1.1rem;margin:0}
+.lede{color:var(--muted);margin:0;max-width:70ch}
+.head-row{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;min-width:0}
+.stat .n{font-family:var(--display);font-size:1.7rem;font-weight:700;line-height:1.1;font-variant-numeric:tabular-nums}
+.stat .l{font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;font-weight:600}
+.stat .s{font-size:.82rem;color:var(--muted);overflow-wrap:anywhere}
+.filters{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.chip{border:1px solid var(--line);background:var(--surface);border-radius:20px;padding:5px 12px;font-size:.85rem;font-weight:600;cursor:pointer;color:var(--muted)}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.search{flex:1 1 200px;min-width:0;border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:7px 10px}
+select.sel{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:7px 8px;max-width:100%}
+.btn{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:8px 14px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:var(--fg)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.small{padding:4px 10px;font-size:.82rem}
+.btn.danger{color:var(--warn);border-color:var(--warn)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.list{display:flex;flex-direction:column;gap:8px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;display:grid;grid-template-columns:auto 1fr auto;gap:4px 14px;align-items:start;cursor:pointer;text-align:left;width:100%}
+.card:hover{border-color:var(--accent)}
+.datebox{width:58px;text-align:center;border-radius:8px;background:var(--sunk);padding:4px 0;font-variant-numeric:tabular-nums}
+.datebox .d{font-family:var(--display);font-weight:700;font-size:1.35rem;line-height:1.1}
+.datebox .m{font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600}
+.datebox.tbc .d{font-size:.9rem;padding-block:6px}
+.card .main{min-width:0}
+.card .title{font-weight:600;font-size:1rem;overflow-wrap:anywhere}
+.meta{display:flex;flex-wrap:wrap;gap:4px 12px;color:var(--muted);font-size:.85rem}
+.meta span{overflow-wrap:anywhere}
+.card .side{display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+.pill{display:inline-block;border-radius:20px;padding:2px 9px;font-size:.75rem;font-weight:600;white-space:nowrap;background:var(--none-bg);color:var(--none)}
+.pill.t-High{background:var(--high-bg);color:var(--high)}
+.pill.t-Medium{background:var(--med-bg);color:var(--med)}
+.pill.t-Low{background:var(--low-bg);color:var(--low)}
+.pill.t-None{background:transparent;border:1px dashed var(--none);color:var(--none)}
+.pill.s-booked{background:var(--accent-soft);color:var(--accent)}
+.pill.s-done{background:var(--high-bg);color:var(--high)}
+.pill.s-wait{background:var(--med-bg);color:var(--med)}
+.pill.s-bad{background:var(--warn-bg);color:var(--warn)}
+.tags{display:flex;flex-wrap:wrap;gap:4px}
+.tag{font-size:.75rem;border:1px solid var(--line);border-radius:6px;padding:1px 6px;color:var(--muted)}
+.tag.eliza{border-color:var(--low);color:var(--low)}
+.tag.david{border-color:var(--accent);color:var(--accent)}
+.flag{color:var(--warn);font-size:.8rem;font-weight:600}
+.tablewrap{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:var(--r)}
+table{border-collapse:collapse;width:100%;font-size:.88rem}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:600;background:var(--sunk);position:sticky;top:0;white-space:nowrap}
+th.sortable{cursor:pointer}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;font-family:var(--mono);font-size:.82rem}
+tbody tr{cursor:pointer}
+tbody tr:hover td{background:var(--sunk)}
+td .sub{display:block;color:var(--muted);font-size:.78rem}
+.yr{font-family:var(--mono);font-size:.78rem;white-space:nowrap}
+.yr.empty{color:var(--line)}
+.empty-state{border:1px dashed var(--line);border-radius:var(--r);padding:28px 18px;text-align:center;color:var(--muted)}
+.muted{color:var(--muted)}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;min-width:0;display:flex;flex-direction:column;gap:10px}
+.todo{display:grid;grid-template-columns:auto 1fr auto;gap:4px 10px;align-items:start;padding:10px 0;border-bottom:1px solid var(--line)}
+.todo:last-child{border-bottom:0}
+.todo input[type=checkbox]{width:18px;height:18px;margin-top:3px;accent-color:var(--accent)}
+.todo .t{font-weight:600;overflow-wrap:anywhere}
+.todo.done .t{text-decoration:line-through;color:var(--muted)}
+.todo .d{font-size:.85rem;color:var(--muted);overflow-wrap:anywhere}
+.prio{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+.prio.High{color:var(--warn)} .prio.Medium{color:var(--med)} .prio.Low{color:var(--muted)}
+/* calendar */
+.cal-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.cal-head h3{min-width:170px}
+.cal{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--line);gap:1px}
+.cal .dow{background:var(--sunk);font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);padding:6px;font-weight:600}
+.cal .day{background:var(--surface);min-height:96px;padding:4px;display:flex;flex-direction:column;gap:3px;min-width:0}
+.cal .day.out{background:var(--bg);opacity:.6}
+.cal .day .num{font-family:var(--mono);font-size:.75rem;color:var(--muted)}
+.cal .day.today .num{color:var(--accent-ink);background:var(--accent);border-radius:10px;padding:0 6px;align-self:flex-start}
+.ev{border:0;text-align:left;border-radius:5px;padding:2px 5px;font-size:.74rem;line-height:1.3;cursor:pointer;background:var(--accent-soft);color:var(--fg);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width:100%}
+.ev.s-done{background:var(--high-bg)} .ev.s-bad{background:var(--warn-bg)}
+.ev .tm{font-family:var(--mono);font-weight:500}
+.agenda{display:none}
+@media (max-width:700px){
+  .brand small{display:none}
+  .brand h1{font-size:1.15rem}
+  .brand{padding-block:10px 4px}
+  .cal .day{min-height:54px}
+  .cal .ev{font-size:0;padding:0;height:6px;border-radius:3px}
+  .agenda{display:flex}
+  .card{grid-template-columns:auto 1fr}
+  .card .side{grid-column:1/-1;flex-direction:row;flex-wrap:wrap;align-items:center}
+}
+/* sheet */
+.overlay{position:fixed;inset:0;background:rgba(10,20,18,.45);z-index:50;display:flex;justify-content:flex-end}
+.sheet{background:var(--bg);width:min(640px,100%);height:100%;overflow-y:auto;box-shadow:-8px 0 30px rgba(0,0,0,.2);display:flex;flex-direction:column}
+.sheet-head{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--line);padding:calc(12px + env(safe-area-inset-top,0px)) 16px 12px;display:flex;gap:10px;align-items:center;justify-content:space-between;z-index:2}
+.sheet-head h3{font-size:1.2rem;overflow-wrap:anywhere;min-width:0}
+.sheet-body{padding:16px;display:flex;flex-direction:column;gap:16px}
+.sheet-foot{position:sticky;bottom:0;background:var(--bg);border-top:1px solid var(--line);padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px));display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.fs{border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;background:var(--surface);display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 12px;margin:0}
+.fs legend{font-family:var(--display);font-weight:500;font-size:1rem;padding:0 4px}
+.fs .full{grid-column:1/-1}
+@media (max-width:520px){.fs{grid-template-columns:1fr}}
+.field{display:flex;flex-direction:column;gap:4px;min-width:0}
+.field label,.lbl{font-size:.75rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.field input,.field select,.field textarea{border:1px solid var(--line);background:var(--bg);border-radius:8px;padding:8px 10px;width:100%;min-width:0}
+.field textarea{min-height:76px;resize:vertical}
+.checks{display:flex;flex-wrap:wrap;gap:6px}
+.checks label{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--line);border-radius:20px;padding:4px 10px;font-size:.85rem;cursor:pointer;background:var(--bg)}
+.checks input{accent-color:var(--accent);width:auto!important}
+.field .checks label{font-size:.85rem;text-transform:none;letter-spacing:0;color:var(--fg);font-weight:500}
+.checks label:has(input:checked){border-color:var(--accent);background:var(--accent-soft)}
+.fu{display:flex;gap:8px;align-items:flex-start}
+.fu input[type=checkbox]{margin-top:4px;accent-color:var(--accent);width:17px;height:17px}
+.fu span{flex:1;overflow-wrap:anywhere}
+.fu.done span{text-decoration:line-through;color:var(--muted)}
+.history{border-left:3px solid var(--accent-soft);padding-left:10px;display:flex;flex-direction:column;gap:8px;font-size:.88rem}
+.history .when{font-family:var(--mono);font-size:.75rem;color:var(--muted)}
+.invite-box{border:1px solid var(--accent);background:var(--accent-soft);border-radius:var(--r);padding:12px 14px;display:flex;flex-direction:column;gap:10px}
+.invite-box .row{display:flex;flex-wrap:wrap;gap:8px}
+.slots{font-family:var(--mono);font-size:.82rem;display:grid;grid-template-columns:auto 1fr;gap:2px 12px}
+.copyable{font-family:var(--mono);font-size:.8rem;background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:8px;white-space:pre-wrap;overflow-wrap:anywhere;max-height:180px;overflow:auto;user-select:all}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(20px + env(safe-area-inset-bottom,0px));background:var(--fg);color:var(--bg);padding:9px 16px;border-radius:8px;z-index:80;font-weight:600;font-size:.9rem;max-width:calc(100% - 32px)}
+.banner{border:1px solid var(--med);background:var(--med-bg);color:var(--fg);border-radius:var(--r);padding:10px 14px;font-size:.9rem}
+.doclist{display:flex;flex-direction:column}
+.doclist .row{display:grid;grid-template-columns:1fr auto auto;gap:8px;padding:6px 0;border-bottom:1px solid var(--line);align-items:center;font-size:.9rem}
+.doclist .row:last-child{border-bottom:0}
+.bars{display:flex;gap:12px;align-items:flex-end;height:110px;padding-top:8px}
+.bar{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;min-width:0;height:100%;justify-content:flex-end}
+.bar i{display:block;width:100%;max-width:60px;background:var(--accent);border-radius:5px 5px 0 0}
+.bar b{font-family:var(--mono);font-size:.8rem}
+.bar span{font-size:.75rem;color:var(--muted)}
+.handover{font-size:.95rem;max-width:75ch}
+.handover li{margin-bottom:4px}
+@media (prefers-reduced-motion:no-preference){.sheet{animation:slide .18s ease-out}@keyframes slide{from{transform:translateX(30px);opacity:.6}}}
+</style>
+</head>
+<body>
+
+<div id="app">
+<header class="top">
+  <div class="wrap">
+    <div class="brand">
+      <div style="display:flex;align-items:center;gap:12px"><img src="data:image/png;base64,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" alt="Toolbox Clinic GP Lunch" width="48" height="48" style="border-radius:10px;flex:none"><div><h1>Toolbox GP Lunch Planner</h1><small>Bentleigh &amp; Hawthorn East · GP engagement</small></div></div>
+      <div style="display:flex;align-items:center;gap:10px"><div class="sync" id="sync"><b></b><span>Connecting…</span></div><button class="btn small" id="signout" hidden>Sign out</button></div>
+    </div>
+    <nav class="tabs" id="tabs" role="tablist"></nav>
+  </div>
+</header>
+<main class="wrap" id="main"><div class="empty-state">Loading the shared planner…</div></main>
+</div>
+<div id="overlay-root"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script>
+(() => {
+'use strict';
+// ---------- constants ----------
+const STATUSES = ['Not contacted','To email','Emailed – awaiting reply','Called – no answer','Left message','Call back later','To book online','Booked','Confirmed','Rebook needed','Cancelled','Declined – send info','Completed'];
+const OUTREACH = ['Not contacted','To email','Emailed – awaiting reply','Called – no answer','Left message','Call back later','To book online','Rebook needed'];
+const BOOKED = ['Booked','Confirmed'];
+const DIETS = ['None','Vegetarian','Vegan','Halal','Kosher','No pork','No beef','No seafood','No sushi','Fish only','Meat','Gluten free','Dairy free','Nut allergy','Healthy options'];
+const PEOPLE = ['David Berlinski','Eliza Doumakis'];
+const TABS = [['lunches','GP lunches'],['calendar','Calendar'],['referrals','Referrals'],['clinics','Clinics & visits'],['prospects','Not contacted'],['flyers','Flyers'],['todo','To-do'],['settings','Settings & handover']];
+const YEARS = ['2024','2025','2026'];
+
+// ---------- state ----------
+const S = { clinics:new Map(), lunches:new Map(), todos:new Map(), settings:{}, loaded:{c:0,l:0,t:0,s:0}, db:null, canWrite:true, tab:'lunches',
+  f:{ lunch:'upcoming', lperson:'', lq:'', refMode:'practices', tier:'', region:'', rq:'', cq:'', cregion:'', cvisit:'', pregion:'', fshow:'open', calY:0, calM:0, sort:{k:'refTotal',d:-1}, csort:{k:'name',d:1} } };
+try{ const t = localStorage.getItem('gpl-tab'); if(t && TABS.some(x=>x[0]===t)) S.tab=t; }catch(e){}
+if (location.hash && TABS.some(x=>x[0]===location.hash.slice(1))) S.tab = location.hash.slice(1);
+
+// ---------- helpers ----------
+const $ = (s,el=document)=>el.querySelector(s);
+const h = v => String(v ?? '').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const todayStr = () => new Intl.DateTimeFormat('en-CA',{timeZone:'Australia/Melbourne'}).format(new Date());
+const pd = s => { const [y,m,d]=s.split('-').map(Number); return new Date(y,m-1,d); };
+const fmtDate = (s,opt) => s ? pd(s).toLocaleDateString('en-AU', opt||{weekday:'short',day:'numeric',month:'short',year:'numeric'}) : 'Date TBC';
+const fmtTime = t => { if(!t) return ''; const [H,M]=t.split(':').map(Number); const ap=H>=12?'pm':'am'; const hh=((H+11)%12)+1; return hh+(M?':'+String(M).padStart(2,'0'):'')+ap; };
+const uid = p => p+'-'+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+const slug = s => s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,60) || uid('c');
+const mapUrl = (name,addr) => 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent([name,addr].filter(Boolean).join(', '));
+const set = () => S.settings || {};
+const gpLabel = l => l.gpCount ? `${l.gpCount} GP${l.gpCount>1?'s':''}` : 'GPs TBC';
+const qs = o => Object.entries(o).filter(([k,v])=>v!==undefined&&v!=='').map(([k,v])=>encodeURIComponent(k)+'='+encodeURIComponent(v)).join('&');
+function toast(msg){ const t=document.createElement('div'); t.className='toast'; t.textContent=msg; document.body.appendChild(t); setTimeout(()=>t.remove(),2600); }
+async function copy(text, el){ try{ await navigator.clipboard.writeText(text); toast('Copied'); }catch(e){ if(el){ const r=document.createRange(); r.selectNodeContents(el); const s=getSelection(); s.removeAllRanges(); s.addRange(r);} toast('Press Ctrl/Cmd+C to copy the selected text'); } }
+
+function tierOf(c){ if(c.tierOverride) return c.tierOverride; const st=set(); const n=c.refTotal||0; if(!n) return 'Not referred yet'; if(n>=(st.practiceHigh||15)) return 'High'; if(n>=(st.practiceMedium||5)) return 'Medium'; return 'Low'; }
+function docTier(n){ const st=set(); if(!n) return 'Not referred yet'; if(n>=(st.doctorHigh||6)) return 'High'; if(n>=(st.doctorMedium||3)) return 'Medium'; return 'Low'; }
+const tierPill = t => `<span class="pill t-${t==='Not referred yet'?'None':t}">${h(t)}</span>`;
+function statusClass(s){ if(BOOKED.includes(s)) return 's-booked'; if(s==='Completed') return 's-done'; if(['Cancelled','Rebook needed','Declined – send info'].includes(s)) return 's-bad'; return 's-wait'; }
+const statusPill = s => `<span class="pill ${statusClass(s)}">${h(s)}</span>`;
+const lunchesFor = id => [...S.lunches.values()].filter(l=>l.clinicId===id);
+function visitsFor(c){
+  const v = (c.visits||[]).map(x=>({date:x.date||'',year:x.year?String(x.year):(x.date?x.date.slice(0,4):''),note:x.note||'',source:x.source||''}));
+  const seen = new Set(v.filter(x=>x.date).map(x=>x.date));
+  for(const l of lunchesFor(c.id)) if(l.status==='Completed' && l.date && !seen.has(l.date)){ v.push({date:l.date,year:l.date.slice(0,4),note:l.davidNotes||l.notes||'',source:'GP lunch'}); seen.add(l.date); }
+  return v.sort((a,b)=>(a.date||a.year||'').localeCompare(b.date||b.year||''));
+}
+function lastVisit(c){ const v=visitsFor(c).filter(x=>x.date); return v.length?v[v.length-1].date:((c.visits||[]).some(x=>x.year)?String(Math.max(...c.visits.filter(x=>x.year).map(x=>x.year))):''); }
+function nextBooking(c){ const t=todayStr(); return lunchesFor(c.id).filter(l=>BOOKED.includes(l.status) && (!l.date||l.date>=t)).sort((a,b)=>(a.date||'9').localeCompare(b.date||'9'))[0]; }
+function isContacted(c){ return (c.visits||[]).length>0 || lunchesFor(c.id).length>0 || !!c.outreachNotes; }
+
+// time zone: Melbourne local → UTC ms
+function tzOff(ms){ const p=Object.fromEntries(new Intl.DateTimeFormat('en-US',{timeZone:'Australia/Melbourne',hourCycle:'h23',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit'}).formatToParts(new Date(ms)).map(x=>[x.type,x.value])); return (Date.UTC(+p.year,+p.month-1,+p.day,+p.hour,+p.minute,+p.second)-ms)/60000; }
+function melToUtc(date,time){ const [y,m,d]=date.split('-').map(Number); const [H,M]=(time||'12:00').split(':').map(Number); const g=Date.UTC(y,m-1,d,H,M); let u=g-tzOff(g)*60000; const o2=tzOff(u); u=g-o2*60000; return u; }
+function isoMel(ms){ const off=tzOff(ms); const loc=new Date(ms+off*60000); const p=n=>String(n).padStart(2,'0'); const sign=off>=0?'+':'-'; const a=Math.abs(off); return `${loc.getUTCFullYear()}-${p(loc.getUTCMonth()+1)}-${p(loc.getUTCDate())}T${p(loc.getUTCHours())}:${p(loc.getUTCMinutes())}:00${sign}${p(Math.floor(a/60))}:${p(a%60)}`; }
+function hhmmMel(ms){ const off=tzOff(ms); const d=new Date(ms+off*60000); return fmtTime(String(d.getUTCHours()).padStart(2,'0')+':'+String(d.getUTCMinutes()).padStart(2,'0')); }
+
+// ---------- db ----------
+// Supabase-backed store: every record is a row in the docs table (collection, id, data).
+function makeDb(sb){
+  const subs=new Map();
+  const emit = async name => { const fns=subs.get(name)||[]; if(!fns.length) return;
+    const {data,error}=await sb.from('docs').select('id,data').eq('collection',name);
+    if(error){ fns.forEach(f=>f.err&&f.err(error)); return; }
+    fns.forEach(f=>f.cb(data)); };
+  const watch=(name,cb,err)=>{ if(!subs.has(name)) subs.set(name,[]); subs.get(name).push({cb,err}); emit(name); };
+  sb.channel('docs').on('postgres_changes',{event:'*',schema:'public',table:'docs'},p=>{ const n=p.new?.collection||p.old?.collection; if(n) emit(n); else [...subs.keys()].forEach(emit); }).subscribe();
+  const split=p=>{ const i=p.indexOf('/'); return [p.slice(0,i),p.slice(i+1)]; };
+  const ok=r=>{ if(r.error) throw r.error; };
+  return {
+    collection:name=>({ onSnapshot:(cb,err)=>watch(name, rows=>cb({docs:rows.map(r=>({id:r.id,data:()=>r.data}))}), err) }),
+    doc:path=>{ const [c,id]=split(path); return {
+      onSnapshot:(cb,err)=>watch(c, rows=>{ const r=rows.find(x=>x.id===id); cb({exists:!!r,data:()=>r?r.data:undefined}); }, err),
+      set:async data=>{ ok(await sb.from('docs').upsert({collection:c,id,data,updated_at:new Date().toISOString()})); emit(c); },
+      update:async data=>{ ok(await sb.rpc('merge_doc',{p_collection:c,p_id:id,p_patch:data})); emit(c); },
+      delete:async()=>{ ok(await sb.from('docs').delete().eq('collection',c).eq('id',id)); emit(c); } }; }
+  };
+}
+function showLogin(sb){
+  setSync(false,'Signed out');
+  $('#main').innerHTML='<div class="empty-state"><h3>Sign in to the planner</h3><p>Enter your email and we\'ll send you a sign-in link.</p><form id="login-form" style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap"><input class="search" id="login-email" type="email" required placeholder="you@example.com" autocomplete="email" style="flex:0 1 280px"><button class="btn primary" type="submit">Email me a link</button></form><p id="login-msg" class="muted" style="margin-bottom:0"></p></div>';
+  $('#login-form').addEventListener('submit', async e=>{ e.preventDefault(); const email=$('#login-email').value.trim().toLowerCase(); if(!email) return;
+    $('#login-msg').textContent='Sending…';
+    const {error}=await sb.auth.signInWithOtp({email,options:{emailRedirectTo:location.origin+location.pathname}});
+    $('#login-msg').textContent=error?('Couldn\'t send the link: '+error.message):'Check your inbox for the sign-in link, then open it on this device.'; });
+}
+async function boot(){
+  render();
+  const cfg=window.PLANNER_CONFIG||{};
+  if(!window.supabase || !cfg.supabaseUrl || !cfg.supabaseAnonKey || /YOUR-/.test(cfg.supabaseUrl+cfg.supabaseAnonKey)){ setSync(false,'Not set up'); $('#main').innerHTML='<div class="empty-state"><h3>The planner isn\'t connected to its database yet</h3><p>Add the Supabase project URL and anon key to config.js – see the README.</p></div>'; return; }
+  const sb=window.supabase.createClient(cfg.supabaseUrl,cfg.supabaseAnonKey);
+  sb.auth.onAuthStateChange(ev=>{ if(ev==='SIGNED_OUT') location.reload(); if(ev==='SIGNED_IN' && !S.db) setTimeout(()=>start(sb),0); });
+  const {data:{session}}=await sb.auth.getSession();
+  if(!session){ showLogin(sb); return; }
+  start(sb);
+}
+async function start(sb){
+  if(S.db) return;
+  const db=S.db=makeDb(sb);
+  const so=$('#signout'); so.hidden=false; so.onclick=()=>sb.auth.signOut();
+  $('#main').innerHTML='<div class="empty-state">Loading clinics, lunches and to-dos…</div>';
+  const {data:allowed,error}=await sb.rpc('is_allowed');
+  if(error || !allowed){ S.canWrite=false; setSync(false,error?'Connection problem – reload':'No access'); if(!error){ S.db=null; $('#main').innerHTML='<div class="empty-state"><h3>This email isn\'t on the access list</h3><p>Ask the planner\'s owner to add your email address, then reload.</p></div>'; } return; }
+  const onErr = e => { setSync(false, 'Connection problem – reload'); };
+  db.collection('clinics').onSnapshot(snap=>{ S.clinics=new Map(snap.docs.map(d=>[d.id,{...d.data(),id:d.id}])); S.loaded.c=1; ready(); }, onErr);
+  db.collection('lunches').onSnapshot(snap=>{ S.lunches=new Map(snap.docs.map(d=>[d.id,{...d.data(),id:d.id}])); S.loaded.l=1; ready(); }, onErr);
+  db.collection('todos').onSnapshot(snap=>{ S.todos=new Map(snap.docs.map(d=>[d.id,{...d.data(),id:d.id}])); S.loaded.t=1; ready(); }, onErr);
+  db.doc('settings/main').onSnapshot(snap=>{ S.settings=snap.exists?snap.data():{}; S.loaded.s=1; ready(); }, onErr);
+}
+let rt=null;
+function ready(){ setSync(true, S.canWrite?'Live · shared':'Live · view only'); clearTimeout(rt); rt=setTimeout(()=>{ if(!$('.overlay')) render(); else renderTabsOnly(); },60); }
+function setSync(on,txt){ const el=$('#sync'); el.className='sync'+(on?' on':''); el.querySelector('span').textContent=txt; }
+async function save(path, data, merge){
+  if(!S.db){ toast('Not connected'); return false; }
+  if(!S.canWrite){ toast('You have view-only access – ask the owner for Contributor access'); return false; }
+  try{ const ref=S.db.doc(path); if(merge) await ref.update(data); else await ref.set(data); return true; }
+  catch(e){ if(e && e.code==='invalid_argument' && !merge){ toast('Couldn\'t save – this page may be view-only for you'); } else toast('Couldn\'t save ('+(e&&e.code||'error')+'). Try again.'); return false; }
+}
+async function del(path){ try{ await S.db.doc(path).delete(); return true; }catch(e){ toast('Couldn\'t delete'); return false; } }
+
+// ---------- rendering ----------
+function counts(){
+  const t=todayStr(); const L=[...S.lunches.values()];
+  return { upcoming:L.filter(l=>BOOKED.includes(l.status)&&(!l.date||l.date>=t)).length,
+    todo:[...S.todos.values()].filter(x=>!x.done).length + autoChecks().length,
+    prospects:[...S.clinics.values()].filter(c=>['Bentleigh','Hawthorn East'].includes(c.region)&&!isContacted(c)).length,
+    flyers:[...S.clinics.values()].filter(c=>c.flyerNeeded&&!c.flyerDone).length };
+}
+function renderTabsOnly(){
+  const c = S.loaded.c&&S.loaded.l ? counts() : {};
+  const badge = {lunches:c.upcoming, todo:c.todo, prospects:c.prospects, flyers:c.flyers};
+  $('#tabs').innerHTML = TABS.map(([k,l])=>`<button role="tab" aria-selected="${S.tab===k}" data-tab="${k}">${h(l)}${badge[k]!=null?`<span class="count">${badge[k]}</span>`:''}</button>`).join('');
+}
+function render(){
+  renderTabsOnly();
+  if(!(S.loaded.c&&S.loaded.l&&S.loaded.t&&S.loaded.s)) { if(S.db) $('#main').innerHTML='<div class="empty-state">Loading clinics, lunches and to-dos…</div>'; return; }
+  const v = {lunches:vLunches,calendar:vCalendar,referrals:vReferrals,clinics:vClinics,prospects:vProspects,flyers:vFlyers,todo:vTodo,settings:vSettings}[S.tab];
+  const keepFocus = document.activeElement && document.activeElement.id; const pos = document.activeElement?.selectionStart;
+  $('#main').innerHTML = `<section class="view">${v()}</section>`;
+  if(keepFocus){ const el=document.getElementById(keepFocus); if(el){ el.focus(); try{ if(pos!=null) el.setSelectionRange(pos,pos);}catch(e){} } }
+}
+
+// ===== Lunches =====
+function lunchMatches(l){
+  const t=todayStr(), f=S.f;
+  const isUp = BOOKED.includes(l.status) && (!l.date||l.date>=t);
+  const isPast = l.status==='Completed' || (BOOKED.includes(l.status) && l.date && l.date<t);
+  const g = {upcoming:isUp, outreach:OUTREACH.includes(l.status), past:isPast, closed:['Cancelled','Declined – send info'].includes(l.status), all:true}[f.lunch];
+  if(!g) return false;
+  if(f.lperson && !(l.attendees||[]).includes(f.lperson)) return false;
+  if(f.lq){ const q=f.lq.toLowerCase(); if(!((l.clinicName||'')+' '+(l.notes||'')+' '+(l.address||'')).toLowerCase().includes(q)) return false; }
+  return true;
+}
+function vLunches(){
+  const t=todayStr(); const L=[...S.lunches.values()];
+  const up=L.filter(l=>BOOKED.includes(l.status)&&(!l.date||l.date>=t)).sort((a,b)=>(a.date||'9').localeCompare(b.date||'9'));
+  const next=up.find(l=>l.date);
+  const waiting=L.filter(l=>l.status==='Emailed – awaiting reply').length;
+  const openFu=L.reduce((n,l)=>n+(l.followUps||[]).filter(x=>!x.done).length,0);
+  const done26=L.filter(l=>l.status==='Completed'&&(l.date||'').startsWith(t.slice(0,4))).length;
+  const list=L.filter(lunchMatches).sort((a,b)=>{ const pa=S.f.lunch==='past'?-1:1; return pa*((a.date||'9999').localeCompare(b.date||'9999')) || (a.clinicName||'').localeCompare(b.clinicName||''); });
+  const grp=[['upcoming','Upcoming'],['outreach','Booking in progress'],['past','Past & completed'],['closed','Declined / cancelled'],['all','All']];
+  return `
+  <div class="head-row"><div><h2>GP lunches</h2><p class="lede">Every clinic we're booking, booked with, or have visited. Open a lunch to update its status, dietaries, who's going and David's notes.</p></div>
+  <button class="btn primary" data-act="new-lunch">+ Add GP lunch</button></div>
+  <div class="stats">
+    <div class="stat"><div class="l">Upcoming</div><div class="n">${up.length}</div><div class="s">${next?'Next: '+h(next.clinicName)+' · '+fmtDate(next.date,{day:'numeric',month:'short'}):'Nothing booked yet'}</div></div>
+    <div class="stat"><div class="l">Awaiting reply</div><div class="n">${waiting}</div><div class="s">Emailed, no answer yet</div></div>
+    <div class="stat"><div class="l">Open follow-ups</div><div class="n">${openFu}</div><div class="s">Across all lunches</div></div>
+    <div class="stat"><div class="l">Lunches held ${t.slice(0,4)}</div><div class="n">${done26}</div><div class="s">Marked completed</div></div>
+  </div>
+  <div class="filters">${grp.map(([k,l])=>`<button class="chip" aria-pressed="${S.f.lunch===k}" data-f="lunch" data-v="${k}">${l}</button>`).join('')}
+    <select class="sel" id="f-lperson" data-fsel="lperson" aria-label="Who is going"><option value="">Anyone attending</option>${PEOPLE.map(p=>`<option ${S.f.lperson===p?'selected':''}>${p}</option>`).join('')}</select>
+    <input class="search" id="f-lq" data-fin="lq" placeholder="Search clinic, notes or address" value="${h(S.f.lq)}">
+  </div>
+  <div class="list">${list.length?list.map(lunchCard).join(''):`<div class="empty-state">No lunches in this view. ${S.f.lunch==='upcoming'?'Use “+ Add GP lunch” to book one.':''}</div>`}</div>`;
+}
+function lunchCard(l){
+  const d=l.date?pd(l.date):null; const fu=(l.followUps||[]).filter(x=>!x.done);
+  const needsInvite = BOOKED.includes(l.status) && l.date && !l.inviteSentAt;
+  const needsEliza = (l.attendees||[]).includes('Eliza Doumakis') && BOOKED.includes(l.status) && !l.elizaEmailedAt;
+  return `<button class="card" data-open-lunch="${h(l.id)}">
+    <div class="datebox ${d?'':'tbc'}">${d?`<div class="m">${d.toLocaleDateString('en-AU',{month:'short'})}</div><div class="d">${d.getDate()}</div><div class="m">${d.getFullYear()}</div>`:'<div class="d">TBC</div>'}</div>
+    <div class="main"><div class="title">${h(l.clinicName||'Untitled')}</div>
+      <div class="meta">${l.date?`<span>${fmtDate(l.date,{weekday:'short'})}${l.time?' · '+fmtTime(l.time):''}</span>`:''}${l.gpCount?`<span>${l.gpCount} GP${l.gpCount>1?'s':''}</span>`:''}${(l.diets||[]).length?`<span>${h(l.diets.join(', '))}</span>`:''}${l.address?`<span>${h(l.address)}</span>`:''}</div>
+      ${fu.length?`<div class="meta"><span>☐ ${h(fu[0].text)}${fu.length>1?` (+${fu.length-1} more)`:''}</span></div>`:''}
+    </div>
+    <div class="side">${statusPill(l.status)}<div class="tags">${(l.attendees||[]).map(p=>`<span class="tag ${p.startsWith('Eliza')?'eliza':'david'}">${h(p.split(' ')[0])}</span>`).join('')}</div>
+      ${needsInvite?'<span class="flag">Invite not sent</span>':''}${needsEliza?'<span class="flag">Email Eliza</span>':''}</div>
+  </button>`;
+}
+
+// ===== Calendar =====
+function vCalendar(){
+  const t=todayStr(); if(!S.f.calY){ S.f.calY=+t.slice(0,4); S.f.calM=+t.slice(5,7)-1; }
+  const y=S.f.calY, m=S.f.calM; const first=new Date(y,m,1); const start=new Date(y,m,1-((first.getDay()+6)%7));
+  const L=[...S.lunches.values()].filter(l=>l.date && !['Cancelled','Declined – send info'].includes(l.status));
+  const byDay={}; L.forEach(l=>{(byDay[l.date]=byDay[l.date]||[]).push(l);});
+  let cells=''; const days=[];
+  for(let i=0;i<42;i++){ const d=new Date(start); d.setDate(start.getDate()+i); const ds=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+    if(i>=35 && d.getMonth()!==m) break;
+    const ev=(byDay[ds]||[]).sort((a,b)=>(a.time||'').localeCompare(b.time||''));
+    if(d.getMonth()===m) ev.forEach(e=>days.push(e));
+    cells+=`<div class="day ${d.getMonth()!==m?'out':''} ${ds===t?'today':''}"><span class="num">${d.getDate()}</span>${ev.map(e=>`<button class="ev ${statusClass(e.status)}" data-open-lunch="${h(e.id)}" title="${h(e.clinicName)}"><span class="tm">${fmtTime(e.time)}</span> ${h(e.clinicName)}</button>`).join('')}</div>`; }
+  const monthName=first.toLocaleDateString('en-AU',{month:'long',year:'numeric'});
+  const undated=[...S.lunches.values()].filter(l=>BOOKED.includes(l.status)&&!l.date);
+  return `<div class="head-row"><div><h2>Calendar</h2><p class="lede">Booked and completed GP lunches. Travel time (1 hour each way) is added to the Outlook invites, not shown here.</p></div><button class="btn primary" data-act="new-lunch">+ Add GP lunch</button></div>
+  <div class="cal-head"><button class="btn small" data-cal="-1" aria-label="Previous month">‹</button><h3>${monthName}</h3><button class="btn small" data-cal="1" aria-label="Next month">›</button><button class="btn small" data-cal="0">Today</button>
+   <span class="tags" style="margin-left:auto"><span class="pill s-booked">Booked</span><span class="pill s-done">Completed</span><span class="pill s-bad">Rebook</span></span></div>
+  <div class="cal">${['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].map(d=>`<div class="dow">${d}</div>`).join('')}${cells}</div>
+  <div class="list agenda">${days.length?days.map(lunchCard).join(''):'<div class="empty-state">No lunches this month.</div>'}</div>
+  ${undated.length?`<div class="panel"><h3>Booked, date to confirm</h3><div class="list">${undated.map(lunchCard).join('')}</div></div>`:''}`;
+}
+
+// ===== Referrals =====
+function allDoctors(){
+  const out=[]; for(const c of S.clinics.values()) for(const d of (c.doctors||[])) out.push({...d, clinicId:c.id, clinicName:c.name, region:c.region, worksAt:c.privateGP?c.worksAt:''});
+  for(const u of (set().unassigned||[])) out.push({...u, clinicId:'', clinicName:'Practice not recorded', region:''});
+  return out;
+}
+function vReferrals(){
+  const st=set(); const yt=st.refYearTotals||{}; const max=Math.max(1,...Object.values(yt));
+  const C=[...S.clinics.values()];
+  const tiers=['High','Medium','Low','Not referred yet'];
+  const tc = Object.fromEntries(tiers.map(t=>[t,C.filter(c=>tierOf(c)===t).length]));
+  const f=S.f; const q=f.rq.toLowerCase();
+  let body='';
+  if(f.refMode==='practices'){
+    let rows=C.filter(c=>(!f.tier||tierOf(c)===f.tier)&&(!f.region||c.region===f.region)&&(!q||c.name.toLowerCase().includes(q)||(c.doctors||[]).some(d=>d.name.toLowerCase().includes(q))));
+    if(f.tier==='Not referred yet' || !f.tier) {}
+    const k=f.sort.k, dir=f.sort.d;
+    rows.sort((a,b)=>{ const va=k==='name'?a.name:k==='last'?(a.lastReferral||''):k.startsWith('y')?(a.refYears?.[k.slice(1)]||0):(a.refTotal||0); const vb=k==='name'?b.name:k==='last'?(b.lastReferral||''):k.startsWith('y')?(b.refYears?.[k.slice(1)]||0):(b.refTotal||0); return (va>vb?1:va<vb?-1:0)*dir || a.name.localeCompare(b.name); });
+    const th=(k,l,cls='')=>`<th class="sortable ${cls}" data-sort="${k}">${l}${f.sort.k===k?(f.sort.d>0?' ▲':' ▼'):''}</th>`;
+    body=`<div class="tablewrap"><table><thead><tr>${th('name','Practice')}<th>Tier</th>${th('refTotal','Total','num')}${YEARS.map(y=>th('y'+y,y,'num')).join('')}${th('last','Last referral')}<th>Referring doctors</th><th>Last visit</th></tr></thead><tbody>
+    ${rows.map(c=>{ const refd=(c.doctors||[]).filter(d=>d.refs>0); return `<tr data-open-clinic="${h(c.id)}"><td><b>${h(c.name)}</b>${c.privateGP?' <span class="tag">Private GP</span>':''}<span class="sub">${h(c.suburb||'')}${c.region?' · '+h(c.region):''}</span>${c.worksAt?`<span class="sub">Works at: ${h(c.worksAt)}</span>`:''}</td><td>${tierPill(tierOf(c))}</td><td class="num"><b>${c.refTotal||0}</b></td>${YEARS.map(y=>`<td class="num">${c.refYears?.[y]||'·'}</td>`).join('')}<td class="yr">${c.lastReferral?fmtDate(c.lastReferral,{day:'numeric',month:'short',year:'2-digit'}):'—'}</td><td>${refd.slice(0,3).map(d=>h(d.name)+` <span class="muted">(${d.refs})</span>`).join(', ')}${refd.length>3?` <span class="muted">+${refd.length-3}</span>`:''}</td><td class="yr">${lastVisit(c)?h(lastVisit(c).length>4?fmtDate(lastVisit(c),{month:'short',year:'numeric'}):lastVisit(c)):'<span class="muted">Never</span>'}</td></tr>`; }).join('')}
+    </tbody></table></div>`;
+  } else {
+    let D=allDoctors().filter(d=>(!f.tier||docTier(d.refs)===f.tier)&&(!f.region||d.region===f.region)&&(!q||d.name.toLowerCase().includes(q)||d.clinicName.toLowerCase().includes(q)));
+    D.sort((a,b)=>(b.refs-a.refs)||a.name.localeCompare(b.name));
+    body=`<div class="tablewrap"><table><thead><tr><th>Doctor</th><th>Practice</th><th>Tier</th><th class="num">Total</th>${YEARS.map(y=>`<th class="num">${y}</th>`).join('')}<th>Last referral</th><th>Source</th></tr></thead><tbody>
+    ${D.map(d=>`<tr ${d.clinicId?`data-open-clinic="${h(d.clinicId)}"`:''}><td><b>Dr ${h(d.name)}</b></td><td>${h(d.clinicName)}${d.worksAt?`<span class="sub">${h(d.worksAt)}</span>`:''}</td><td>${tierPill(docTier(d.refs))}</td><td class="num"><b>${d.refs}</b></td>${YEARS.map(y=>`<td class="num">${d.years?.[y]||'·'}</td>`).join('')}<td class="yr">${d.last?fmtDate(d.last,{day:'numeric',month:'short',year:'2-digit'}):'—'}</td><td class="muted">${d.refs?(d.web?'Referrals · on clinic site':'Referrals'):'Clinic website'}</td></tr>`).join('')}
+    </tbody></table></div>`;
+  }
+  const dcount = allDoctors(); const dt=Object.fromEntries(tiers.map(t=>[t,dcount.filter(d=>docTier(d.refs)===t).length]));
+  const cnt = f.refMode==='practices'?tc:dt;
+  return `<div class="head-row"><div><h2>Referrals</h2><p class="lede">${h(st.referralPeriod||'')}. Practice tiers: High ${st.practiceHigh||15}+ referrals, Medium ${st.practiceMedium||5}–${(st.practiceHigh||15)-1}, Low 1–${(st.practiceMedium||5)-1}. Doctor tiers: High ${st.doctorHigh||6}+, Medium ${st.doctorMedium||3}–${(st.doctorHigh||6)-1}, Low 1–${(st.doctorMedium||3)-1}. Change these in Settings.</p></div></div>
+  <div class="two"><div class="panel"><span class="lbl">Referrals by year (referral start date)</span><div class="bars">${Object.entries(yt).map(([y,n])=>`<div class="bar"><b>${n}</b><i style="height:${Math.round(n/max*70)}px"></i><span>${y}${y===todayStr().slice(0,4)?' (to date)':''}</span></div>`).join('')}</div></div>
+  <div class="stats">${tiers.map(t=>`<button class="stat chip" style="text-align:left;border-radius:var(--r)" aria-pressed="${S.f.tier===t}" data-f="tier" data-v="${t}"><div class="l">${t}</div><div class="n">${cnt[t]}</div><div class="s">${f.refMode==='practices'?'practices':'doctors'}</div></button>`).join('')}</div></div>
+  <div class="filters"><button class="chip" aria-pressed="${f.refMode==='practices'}" data-f="refMode" data-v="practices">By practice</button><button class="chip" aria-pressed="${f.refMode==='doctors'}" data-f="refMode" data-v="doctors">By doctor</button>
+   <select class="sel" id="f-region" data-fsel="region" aria-label="Region"><option value="">All regions</option>${['Bentleigh','Hawthorn East','Other'].map(r=>`<option ${f.region===r?'selected':''}>${r}</option>`).join('')}</select>
+   ${f.tier?`<button class="chip" data-f="tier" data-v="">Clear tier: ${h(f.tier)} ✕</button>`:''}
+   <input class="search" id="f-rq" data-fin="rq" placeholder="Search practice or doctor" value="${h(f.rq)}"></div>
+  ${body}`;
+}
+
+// ===== Clinics & visits =====
+function vClinics(){
+  const f=S.f; const q=f.cq.toLowerCase();
+  let C=[...S.clinics.values()].filter(c=>(!f.cregion||c.region===f.cregion)&&(!q||c.name.toLowerCase().includes(q)||(c.address||'').toLowerCase().includes(q)||(c.suburb||'').toLowerCase().includes(q)));
+  if(f.cvisit==='visited') C=C.filter(c=>visitsFor(c).length); if(f.cvisit==='never') C=C.filter(c=>!visitsFor(c).length);
+  if(f.cvisit==='due') C=C.filter(c=>{ const lv=lastVisit(c); return (c.refTotal||0)>=5 && !nextBooking(c) && (!lv || lv < String(+todayStr().slice(0,4)-1)+todayStr().slice(4)); });
+  const k=f.csort.k, d=f.csort.d;
+  C.sort((a,b)=>{ const va=k==='name'?a.name:k==='last'?(lastVisit(a)||''):(a.refTotal||0); const vb=k==='name'?b.name:k==='last'?(lastVisit(b)||''):(b.refTotal||0); return (va>vb?1:va<vb?-1:0)*d || a.name.localeCompare(b.name); });
+  const th=(k,l,cls='')=>`<th class="sortable ${cls}" data-csort="${k}">${l}${f.csort.k===k?(f.csort.d>0?' ▲':' ▼'):''}</th>`;
+  const cell=(c,y)=>{ const v=visitsFor(c).filter(x=>x.year===y); if(!v.length) return `<td class="yr empty">—</td>`; return `<td class="yr">${v.map(x=>x.date?fmtDate(x.date,{day:'numeric',month:'short'}):'✓').join('<br>')}</td>`; };
+  return `<div class="head-row"><div><h2>Clinics &amp; visits</h2><p class="lede">Every GP clinic from the spreadsheets plus clinics found online. The year columns show when we attended each clinic; “Before 2025” covers visits with no recorded date.</p></div><button class="btn primary" data-act="new-clinic">+ Add clinic</button></div>
+  <div class="filters">
+   ${[['','All'],['visited','Visited'],['never','Never visited'],['due','Medium/high referrers not seen in 12 months']].map(([v,l])=>`<button class="chip" aria-pressed="${f.cvisit===v}" data-f="cvisit" data-v="${v}">${l}</button>`).join('')}
+   <select class="sel" id="f-cregion" data-fsel="cregion" aria-label="Region"><option value="">All regions</option>${['Bentleigh','Hawthorn East','Other'].map(r=>`<option ${f.cregion===r?'selected':''}>${r}</option>`).join('')}</select>
+   <input class="search" id="f-cq" data-fin="cq" placeholder="Search clinic, suburb or address" value="${h(f.cq)}"></div>
+  <div class="muted" style="font-size:.85rem">${C.length} clinics</div>
+  <div class="tablewrap"><table><thead><tr>${th('name','Clinic')}<th>Tier</th>${th('refTotal','Referrals','num')}<th>Before 2025</th>${YEARS.map(y=>`<th>${y}</th>`).join('')}${th('last','Last attended')}<th>Next booked</th><th>Map</th></tr></thead><tbody>
+  ${C.map(c=>{ const v=visitsFor(c); const pre=v.filter(x=>!x.year || x.year<'2024').length; const nb=nextBooking(c); const lv=lastVisit(c); return `<tr data-open-clinic="${h(c.id)}"><td><b>${h(c.name)}</b>${c.privateGP?' <span class="tag">Private GP</span>':''}<span class="sub">${h(c.address||c.suburb||'')}</span>${c.worksAt?`<span class="sub">Works at: ${h(c.worksAt)}</span>`:''}</td><td>${tierPill(tierOf(c))}</td><td class="num">${c.refTotal||0}</td><td class="yr ${pre?'':'empty'}">${pre?'✓':'—'}</td>${YEARS.map(y=>cell(c,y)).join('')}<td class="yr">${lv?(lv.length>4?fmtDate(lv,{month:'short',year:'numeric'}):lv):'<span class="muted">Never</span>'}</td><td class="yr">${nb?(nb.date?fmtDate(nb.date,{day:'numeric',month:'short',year:'2-digit'}):'TBC'):''}</td><td><a href="${mapUrl(c.name,c.address)}" target="_blank" rel="noopener" data-stop>Map</a></td></tr>`; }).join('')}
+  </tbody></table></div>`;
+}
+
+// ===== Prospects =====
+function vProspects(){
+  const f=S.f; const C=[...S.clinics.values()].filter(c=>['Bentleigh','Hawthorn East'].includes(c.region)&&!isContacted(c)&&(!f.pregion||c.region===f.pregion));
+  const grp=r=>C.filter(c=>c.region===r).sort((a,b)=>(b.isNew-a.isNew)||a.name.localeCompare(b.name));
+  const block=r=>{ const g=grp(r); if(!g.length) return ''; return `<div class="panel"><h3>${r} area <span class="muted" style="font-size:.85rem">· ${g.length}</span></h3><div class="doclist">${g.map(c=>`<div class="row"><div style="min-width:0"><b>${h(c.name)}</b> ${c.isNew?'<span class="tag">Found online</span>':''}${c.privateGP?' <span class="tag">Private GP</span>':''}${c.worksAt?`<div class="muted" style="font-size:.82rem">Works at: ${h(c.worksAt)}</div>`:''}<div class="muted" style="font-size:.82rem;overflow-wrap:anywhere">${h(c.address||c.suburb)}${c.phone?' · '+h(c.phone):''}</div></div><a class="btn small" href="${mapUrl(c.name,c.address)}" target="_blank" rel="noopener">Map</a><button class="btn small primary" data-start="${h(c.id)}">Start outreach</button></div>`).join('')}</div></div>`; };
+  return `<div class="head-row"><div><h2>Not contacted yet</h2><p class="lede">GP clinics around our Bentleigh and Hawthorn East practices with no outreach, visit or lunch on record. “Found online” clinics came from healthdirect and GP directory searches on 1 Oct 2026 and aren't in any of our spreadsheets. Starting outreach moves a clinic into GP lunches.</p></div></div>
+  <div class="filters">${[['','Both areas'],['Bentleigh','Bentleigh'],['Hawthorn East','Hawthorn East']].map(([v,l])=>`<button class="chip" aria-pressed="${f.pregion===v}" data-f="pregion" data-v="${v}">${l}</button>`).join('')}</div>
+  ${C.length?`<div class="two">${block('Bentleigh')}${block('Hawthorn East')}</div>`:'<div class="empty-state">Every clinic in these areas has been contacted.</div>'}`;
+}
+
+// ===== Flyers =====
+function vFlyers(){
+  const f=S.f; const C=[...S.clinics.values()].filter(c=>c.flyerNeeded && (f.fshow==='all' || (f.fshow==='open'?!c.flyerDone:c.flyerDone)));
+  const order={'Bentleigh':0,'Hawthorn East':1,'Other':2,'':3};
+  C.sort((a,b)=>(order[a.region||'']-order[b.region||''])||(a.suburb||'').localeCompare(b.suburb||'')||a.name.localeCompare(b.name));
+  return `<div class="head-row"><div><h2>Flyer drop-offs</h2><p class="lede">Clinics that don't do GP lunches, asked for information instead, or haven't replied to our June emails. Sorted by area and suburb for a drop-off run. Add a clinic from its clinic page.</p></div></div>
+  <div class="filters">${[['open','To drop off'],['done','Dropped off'],['all','All']].map(([v,l])=>`<button class="chip" aria-pressed="${f.fshow===v}" data-f="fshow" data-v="${v}">${l}</button>`).join('')}</div>
+  <div class="panel">${C.length?C.map(c=>`<div class="todo ${c.flyerDone?'done':''}"><input type="checkbox" id="fly-${h(c.id)}" data-flyer="${h(c.id)}" ${c.flyerDone?'checked':''} aria-label="Flyer dropped off at ${h(c.name)}"><div style="min-width:0"><div class="t"><a href="#" data-open-clinic="${h(c.id)}">${h(c.name)}</a> <span class="muted" style="font-weight:400">· ${h(c.region||'')}</span></div><div class="d">${h(c.address||c.suburb||'Address not recorded')}</div><div class="d">${h(c.flyerReason||'')}</div></div><a class="btn small" href="${mapUrl(c.name,c.address)}" target="_blank" rel="noopener">Map</a></div>`).join(''):'<div class="muted">Nothing in this list.</div>'}</div>`;
+}
+
+// ===== To-do =====
+function autoChecks(){
+  const t=todayStr(); const out=[];
+  for(const l of S.lunches.values()){
+    const n=l.clinicName||'A lunch';
+    if(BOOKED.includes(l.status) && l.date && l.date>=t && !l.inviteSentAt) out.push({l, text:`Send Outlook invite for ${n} (${fmtDate(l.date,{day:'numeric',month:'short'})})`});
+    if(BOOKED.includes(l.status) && (!l.date||l.date>=t) && (!l.gpCount || !(l.diets||[]).length)) out.push({l, text:`Confirm ${!l.gpCount?'GP numbers':''}${!l.gpCount&&!(l.diets||[]).length?' and ':''}${!(l.diets||[]).length?'dietaries':''} for ${n}`});
+    if((l.attendees||[]).includes('Eliza Doumakis') && BOOKED.includes(l.status) && !l.elizaEmailedAt) out.push({l, text:`Email Eliza the details for ${n}`});
+    if(BOOKED.includes(l.status) && l.date && l.date<t) out.push({l, text:`${n} was on ${fmtDate(l.date,{day:'numeric',month:'short'})} – mark completed and add notes`});
+    if(BOOKED.includes(l.status) && !(l.attendees||[]).length) out.push({l, text:`Allocate who's attending ${n}`});
+  }
+  return out;
+}
+function vTodo(){
+  const T=[...S.todos.values()]; const order={High:0,Medium:1,Low:2};
+  const open=T.filter(x=>!x.done).sort((a,b)=>(order[a.priority]-order[b.priority])||(a.due||'9').localeCompare(b.due||'9'));
+  const done=T.filter(x=>x.done);
+  const auto=autoChecks();
+  const fus=[]; for(const l of S.lunches.values()) for(const x of (l.followUps||[])) if(!x.done) fus.push({l,x});
+  fus.sort((a,b)=>(a.l.clinicName||'').localeCompare(b.l.clinicName||''));
+  const todoRow=x=>`<div class="todo ${x.done?'done':''}"><input type="checkbox" id="td-${h(x.id)}" data-todo="${h(x.id)}" ${x.done?'checked':''} aria-label="Done"><div style="min-width:0"><div class="t">${h(x.title)}</div>${x.detail?`<div class="d">${h(x.detail)}</div>`:''}<div class="d"><span class="prio ${h(x.priority)}">${h(x.priority)}</span>${x.category?' · '+h(x.category):''}${x.due?' · due '+fmtDate(x.due,{day:'numeric',month:'short',year:'numeric'}):''}${x.owner?' · '+h(x.owner):''}${x.clinicId&&S.clinics.get(x.clinicId)?` · <a href="#" data-open-clinic="${h(x.clinicId)}">Open clinic</a>`:''}</div></div><button class="btn small" data-edit-todo="${h(x.id)}">Edit</button></div>`;
+  return `<div class="head-row"><div><h2>What needs doing</h2><p class="lede">The handover list. Manual tasks first, then checks the planner works out from the lunches, then every open follow-up on a lunch.</p></div><button class="btn primary" data-act="new-todo">+ Add task</button></div>
+  <div class="panel"><h3>Tasks <span class="muted" style="font-size:.85rem">· ${open.length} open</span></h3>${open.length?open.map(todoRow).join(''):'<div class="muted">All tasks done.</div>'}</div>
+  <div class="two">
+   <div class="panel"><h3>Automatic checks <span class="muted" style="font-size:.85rem">· ${auto.length}</span></h3>${auto.length?auto.map(a=>`<div class="todo"><span class="flag" aria-hidden="true">●</span><div class="t" style="font-weight:500">${h(a.text)}</div><button class="btn small" data-open-lunch="${h(a.l.id)}">Open</button></div>`).join(''):'<div class="muted">Nothing flagged.</div>'}</div>
+   <div class="panel"><h3>Lunch follow-ups <span class="muted" style="font-size:.85rem">· ${fus.length}</span></h3>${fus.length?fus.map(({l,x})=>`<div class="todo"><input type="checkbox" id="fu-${h(x.id)}" data-fu="${h(l.id)}|${h(x.id)}" aria-label="Done"><div style="min-width:0"><div class="t" style="font-weight:500">${h(x.text)}</div><div class="d">${h(l.clinicName)} · ${h(l.status)}</div></div><button class="btn small" data-open-lunch="${h(l.id)}">Open</button></div>`).join(''):'<div class="muted">No open follow-ups.</div>'}</div>
+  </div>
+  ${done.length?`<details class="panel"><summary><b>Completed tasks (${done.length})</b></summary>${done.map(todoRow).join('')}</details>`:''}`;
+}
+
+// ===== Settings =====
+function vSettings(){
+  const st=set();
+  return `<div class="head-row"><div><h2>Settings &amp; handover</h2><p class="lede">Who receives invites, how referral tiers are worked out, and how to run the GP lunch program from here.</p></div></div>
+  ${!st.davidEmail?'<div class="banner">Add David\'s Outlook email address below so calendar invites are addressed to him automatically.</div>':''}
+  <div class="two">
+  <form class="fs" id="settings-form"><h3 class="full">Invites</h3>
+    <div class="field"><label for="s-david">David Berlinski – email</label><input id="s-david" type="email" value="${h(st.davidEmail||'')}" placeholder="david@…"></div>
+    <div class="field"><label for="s-eliza">Eliza Doumakis – email</label><input id="s-eliza" type="email" value="${h(st.elizaEmail||'')}" placeholder="eliza@…"></div>
+    <div class="field"><label for="s-host">Outlook type</label><select id="s-host"><option value="office" ${st.outlookHost!=='live'?'selected':''}>Work / Microsoft 365 (outlook.office.com)</option><option value="live" ${st.outlookHost==='live'?'selected':''}>Personal (outlook.com)</option></select></div>
+    <div class="field"><label for="s-travel">Travel time each way (minutes)</label><input id="s-travel" type="number" min="0" step="15" value="${st.travelMinutes??60}"></div>
+    <div class="field"><label for="s-len">GP lunch length (minutes)</label><input id="s-len" type="number" min="15" step="15" value="${st.lunchMinutes??60}"></div>
+    <h3 class="full" style="margin-top:6px">Referral tiers</h3>
+    <div class="field"><label for="s-ph">Practice: High from</label><input id="s-ph" type="number" min="1" value="${st.practiceHigh??15}"></div>
+    <div class="field"><label for="s-pm">Practice: Medium from</label><input id="s-pm" type="number" min="1" value="${st.practiceMedium??5}"></div>
+    <div class="field"><label for="s-dh">Doctor: High from</label><input id="s-dh" type="number" min="1" value="${st.doctorHigh??6}"></div>
+    <div class="field"><label for="s-dm">Doctor: Medium from</label><input id="s-dm" type="number" min="1" value="${st.doctorMedium??3}"></div>
+    <div class="full"><button class="btn primary" type="submit">Save settings</button></div>
+  </form>
+  <div class="panel handover"><h3>How this planner works</h3>
+   <ol>
+    <li><b>Book a lunch:</b> GP lunches → “+ Add GP lunch”, or “Start outreach” from the Not contacted tab. Log each call in the status (called, left message, booked…).</li>
+    <li><b>Invites:</b> when you save a lunch as Booked or Confirmed, the invite panel opens. three buttons open three separate Outlook invites for David (and Eliza if she's going): the 1-hour GP lunch titled with the clinic, number of GPs and time, then a 1-hour travel invite before and one after. Press Send in Outlook, then “Mark invite as sent”.</li>
+    <li><b>Eliza:</b> tick her as attending and the panel adds an email with all the details for her.</li>
+    <li><b>David's notes:</b> after each lunch, open it, add notes and set status to Completed. Notes are saved to the clinic's history and show up next time that clinic is booked.</li>
+    <li><b>Referrals:</b> figures come from the practice's referral-sources export. To refresh, export the latest report and ask Claude to update this planner.</li>
+   </ol>
+   <p class="muted" style="margin:0">Data sources: Recent Referral Sources export (732 referrals), Toolbox Clinic – Referral Strategy (2024–25 visits and outreach), 2026 – GP Referral Strategy (2026 bookings, HubSpot exports), Clinic Outreach Tracker and the 2027 visit calendar (latest statuses and 2027 bookings), plus doctor lists from clinic websites and clinic directories (healthdirect, gpscout) checked 1 Oct 2026. No client details are stored here.</p>
+  </div></div>`;
+}
+
+// ---------- sheets ----------
+function openSheet(title, body, foot){
+  const root=$('#overlay-root');
+  root.innerHTML=`<div class="overlay" data-close-bg><div class="sheet" role="dialog" aria-modal="true" aria-label="${h(title)}"><div class="sheet-head"><h3>${h(title)}</h3><button class="btn small" data-close aria-label="Close">Close</button></div><div class="sheet-body">${body}</div>${foot?`<div class="sheet-foot">${foot}</div>`:''}</div></div>`;
+  document.body.style.overflow='hidden';
+  setTimeout(()=>{ const f=root.querySelector('.sheet-body input, .sheet-body select, .sheet-body textarea'); },0);
+}
+function closeSheet(){ $('#overlay-root').innerHTML=''; document.body.style.overflow=''; render(); }
+
+// --- lunch editor ---
+let EDIT=null;
+function newLunch(clinic){
+  return { id:uid('l'), clinicId:clinic?.id||'', clinicName:clinic?.name||'', address:clinic?.address||'', date:'', time:'12:30', status:clinic?'Not contacted':'Not contacted', gpCount:null, gpNames:'', diets:[], dietNotes:'', attendees:[], contactName:clinic?.contact||'', contactPhone:clinic?.phone||'', contactEmail:clinic?.email||'', notes:'', davidNotes:'', followUps:[], inviteSentAt:'', elizaEmailedAt:'', createdAt:todayStr(), updatedAt:todayStr(), _new:true };
+}
+function openLunch(id, preset){
+  const l = preset || (S.lunches.get(id) ? JSON.parse(JSON.stringify(S.lunches.get(id))) : null); if(!l) return;
+  EDIT = { l, orig: JSON.stringify({d:l.date,t:l.time,a:l.attendees,s:l.status,addr:l.address}) };
+  const c = S.clinics.get(l.clinicId);
+  const hist = clinicHistory(c, l.id);
+  const body = `
+  <fieldset class="fs"><legend>Clinic</legend>
+    <div class="field full"><label for="e-clinic">GP clinic</label><input id="e-clinic" list="clinic-list" value="${h(l.clinicName)}" placeholder="Start typing a clinic name" autocomplete="off"><datalist id="clinic-list">${[...S.clinics.values()].sort((a,b)=>a.name.localeCompare(b.name)).map(c=>`<option value="${h(c.name)}">`).join('')}</datalist></div>
+    <div class="field full"><label for="e-addr">Address</label><input id="e-addr" value="${h(l.address)}" placeholder="Street, suburb"></div>
+    <div class="full" id="e-maplink">${l.address||l.clinicName?`<a href="${mapUrl(l.clinicName,l.address)}" target="_blank" rel="noopener">Open in Google Maps ↗</a>`:''}${c?` · ${tierPill(tierOf(c))} <span class="muted">${c.refTotal||0} referrals</span> · <a href="#" data-open-clinic="${h(c.id)}">Clinic page</a>`:''}</div>
+  </fieldset>
+  <fieldset class="fs"><legend>Booking</legend>
+    <div class="field"><label for="e-status">Status</label><select id="e-status">${STATUSES.map(s=>`<option ${l.status===s?'selected':''}>${s}</option>`).join('')}</select></div>
+    <div class="field"><label for="e-gps">Number of GPs</label><input id="e-gps" type="number" min="0" value="${l.gpCount??''}"></div>
+    <div class="field"><label for="e-date">Date</label><input id="e-date" type="date" value="${h(l.date)}"></div>
+    <div class="field"><label for="e-time">GP slot start</label><input id="e-time" type="time" value="${h(l.time)}"></div>
+    <div class="field full"><label for="e-gpnames">GPs attending</label><input id="e-gpnames" value="${h(l.gpNames)}" placeholder="e.g. Dr Frawley, Dr Elder"></div>
+    <div class="full"><span class="lbl">Who's going</span><div class="checks" style="margin-top:4px">${PEOPLE.map(p=>`<label><input type="checkbox" name="e-att" value="${p}" ${(l.attendees||[]).includes(p)?'checked':''}> ${p}</label>`).join('')}</div></div>
+  </fieldset>
+  <fieldset class="fs"><legend>Dietary requirements</legend>
+    <div class="full checks">${DIETS.map(d=>`<label><input type="checkbox" name="e-diet" value="${d}" ${(l.diets||[]).includes(d)?'checked':''}> ${d}</label>`).join('')}</div>
+    <div class="field full"><label for="e-dietnotes">Dietary notes</label><input id="e-dietnotes" value="${h(l.dietNotes)}" placeholder="e.g. Dr Vuong eats fish and vegetarian only"></div>
+  </fieldset>
+  <fieldset class="fs"><legend>Contact</legend>
+    <div class="field"><label for="e-cname">Contact person</label><input id="e-cname" value="${h(l.contactName)}" placeholder="Practice manager / reception"></div>
+    <div class="field"><label for="e-cphone">Phone</label><input id="e-cphone" value="${h(l.contactPhone)}"></div>
+    <div class="field full"><label for="e-cemail">Email</label><input id="e-cemail" value="${h(l.contactEmail)}"></div>
+    <div class="field full"><label for="e-notes">Booking notes</label><textarea id="e-notes" placeholder="Call log, who to ask for, parking…">${h(l.notes)}</textarea></div>
+  </fieldset>
+  <fieldset class="fs"><legend>To follow up</legend>
+    <div class="full" id="e-fus">${fuList(l)}</div>
+    <div class="full" style="display:flex;gap:8px"><input id="e-newfu" class="search" placeholder="Add a follow-up (e.g. rebook for March, send flyer)"><button class="btn small" type="button" data-act="add-fu">Add</button></div>
+  </fieldset>
+  <fieldset class="fs"><legend>David's notes</legend>
+    <div class="field full"><label for="e-dnotes">Notes from this lunch</label><textarea id="e-dnotes" style="min-height:110px" placeholder="Who attended, what they asked about, referral interest, what to bring next time">${h(l.davidNotes)}</textarea></div>
+    <div class="full"><span class="lbl">From previous visits</span>${hist||'<div class="muted" style="font-size:.88rem">No earlier notes for this clinic.</div>'}</div>
+  </fieldset>
+  <div id="e-invite">${inviteBox(l)}</div>
+  ${l._new?'':`<div><button class="btn small danger" type="button" data-act="del-lunch">Delete this lunch</button><span id="del-confirm"></span></div>`}`;
+  openSheet(l._new?'New GP lunch':(l.clinicName||'GP lunch'), body, `<button class="btn" data-close>Cancel</button><button class="btn primary" data-act="save-lunch">Save</button>`);
+}
+function fuList(l){ return (l.followUps||[]).length ? (l.followUps.map(x=>`<div class="fu ${x.done?'done':''}"><input type="checkbox" data-efu="${h(x.id)}" ${x.done?'checked':''} aria-label="Done"><span>${h(x.text)}</span><button class="btn small" type="button" data-rmfu="${h(x.id)}" aria-label="Remove">✕</button></div>`).join('')) : '<div class="muted" style="font-size:.88rem">Nothing to follow up.</div>'; }
+function clinicHistory(c, exceptId){
+  if(!c) return '';
+  const items=[...(c.noteLog||[]).filter(n=>n.lunchId!==exceptId)];
+  for(const l of lunchesFor(c.id)) if(l.id!==exceptId && l.davidNotes && !items.some(n=>n.lunchId===l.id)) items.push({date:l.date,author:"David's notes",text:l.davidNotes,lunchId:l.id});
+  if(c.notes) items.push({date:'',author:'Clinic notes',text:c.notes});
+  if(c.outreachNotes) items.push({date:'',author:'Earlier outreach',text:c.outreachNotes});
+  if(!items.length) return '';
+  items.sort((a,b)=>(b.date||'').localeCompare(a.date||''));
+  return `<div class="history">${items.map(n=>`<div><div class="when">${n.date?fmtDate(n.date,{day:'numeric',month:'short',year:'numeric'}):''} ${h(n.author||'')}</div>${h(n.text)}</div>`).join('')}</div>`;
+}
+function readLunchForm(){
+  const l=EDIT.l; const v=id=>$('#'+id).value.trim();
+  l.clinicName=v('e-clinic'); l.address=v('e-addr'); l.status=$('#e-status').value; l.gpCount=$('#e-gps').value?+$('#e-gps').value:null;
+  l.date=$('#e-date').value; l.time=$('#e-time').value; l.gpNames=v('e-gpnames');
+  l.attendees=[...document.querySelectorAll('input[name=e-att]:checked')].map(x=>x.value);
+  l.diets=[...document.querySelectorAll('input[name=e-diet]:checked')].map(x=>x.value);
+  l.dietNotes=v('e-dietnotes'); l.contactName=v('e-cname'); l.contactPhone=v('e-cphone'); l.contactEmail=v('e-cemail'); l.notes=$('#e-notes').value; l.davidNotes=$('#e-dnotes').value;
+  const match=[...S.clinics.values()].find(c=>c.name.toLowerCase()===l.clinicName.toLowerCase());
+  l.clinicId = match?match.id:'';
+  return l;
+}
+async function saveLunch(){
+  const l=readLunchForm();
+  if(!l.clinicName){ toast('Add the clinic name'); $('#e-clinic').focus(); return; }
+  if(l.date && l.date>=todayStr() && OUTREACH.concat(['Not contacted']).includes(l.status)){ l.status='Booked'; }
+  if(BOOKED.includes(l.status) && !l.date){ toast('Booked lunches need a date – or keep the status as “Call back later” until it\'s set'); }
+  // create clinic if new
+  if(!l.clinicId){
+    let id=slug(l.clinicName); while(S.clinics.has(id)) id+='-2';
+    const c={id,name:l.clinicName,address:l.address,suburb:'',region:'',phone:l.contactPhone,email:l.contactEmail,website:'',contact:l.contactName,refTotal:0,refYears:{},lastReferral:null,doctors:[],visits:[],flyerNeeded:false,flyerDone:false,flyerReason:'',noLunches:false,notes:'',outreachNotes:'',sources:['Added in planner'],isNew:false,noteLog:[],tierOverride:'',contacted:true};
+    if(!(await save('clinics/'+id,c))) return; l.clinicId=id; S.clinics.set(id,c);
+  } else {
+    const c=S.clinics.get(l.clinicId); const upd={};
+    if(l.address && !c.address) upd.address=l.address;
+    if(l.davidNotes && l.davidNotes.trim()){ const log=(c.noteLog||[]).filter(n=>n.lunchId!==l.id); log.push({date:l.date||todayStr(),author:"David's notes"+(l.attendees?.length?' ('+l.attendees.map(p=>p.split(' ')[0]).join(', ')+')':''),text:l.davidNotes.trim(),lunchId:l.id}); upd.noteLog=log; }
+    if(Object.keys(upd).length) await save('clinics/'+c.id,upd,true);
+  }
+  const changed = EDIT.orig !== JSON.stringify({d:l.date,t:l.time,a:l.attendees,s:l.status,addr:l.address});
+  const wasNew=l._new; const prev=S.lunches.get(l.id);
+  if(changed && BOOKED.includes(l.status)){ l.inviteSentAt=''; if(prev && JSON.stringify(prev.attendees)!==JSON.stringify(l.attendees)) l.elizaEmailedAt=''; }
+  delete l._new; l.updatedAt=todayStr();
+  if(!(await save('lunches/'+l.id,l))) return;
+  S.lunches.set(l.id,l);
+  toast('Saved');
+  if(BOOKED.includes(l.status) && l.date && (!l.inviteSentAt || wasNew)){ openInvites(l, true); return; }
+  if(l.status==='Cancelled' && prev && prev.inviteSentAt){ openInvites(l, true, true); return; }
+  closeSheet();
+}
+
+// --- invites ---
+function slotTimes(l){
+  const st=set(); const len=(st.lunchMinutes??60)*60000, tr=(st.travelMinutes??60)*60000;
+  const s=melToUtc(l.date,l.time||'12:30'); return { t1:s-tr, s, e:s+len, t2:s+len+tr };
+}
+function recipients(l){ const st=set(); const to=[]; if(st.davidEmail) to.push(st.davidEmail); if((l.attendees||[]).includes('Eliza Doumakis') && st.elizaEmail) to.push(st.elizaEmail); return to; }
+function detailsText(l){
+  const c=S.clinics.get(l.clinicId);
+  const lines=[`GP lunch – ${l.clinicName}`, `When: ${fmtDate(l.date,{weekday:'long',day:'numeric',month:'long',year:'numeric'})}, ${fmtTime(l.time)} (1 hr GP slot)`, `Address: ${l.address||'TBC'}`, `Map: ${mapUrl(l.clinicName,l.address)}`, `Number of GPs: ${l.gpCount||'TBC'}${l.gpNames?' – '+l.gpNames:''}`, `Dietary: ${(l.diets||[]).join(', ')||'TBC'}${l.dietNotes?' – '+l.dietNotes:''}`, `Attending: ${(l.attendees||[]).join(', ')||'TBC'}`];
+  if(l.contactName||l.contactPhone) lines.push(`Clinic contact: ${[l.contactName,l.contactPhone,l.contactEmail].filter(Boolean).join(' · ')}`);
+  if(c) lines.push(`Referrals from this practice: ${c.refTotal||0} (${tierOf(c)})`);
+  if(l.notes) lines.push('', 'Notes: '+l.notes);
+  const lastNote=(c?.noteLog||[]).filter(n=>n.lunchId!==l.id).slice(-1)[0];
+  if(lastNote) lines.push('', `Last visit notes (${lastNote.date}): ${lastNote.text}`);
+  lines.push('', 'Travel: 1 hour blocked before and after.');
+  return lines.join('\n');
+}
+function outlookUrl(l, which){
+  const st=set(); const host=st.outlookHost==='live'?'https://outlook.live.com':'https://outlook.office.com';
+  const T=slotTimes(l); const n=gpLabel(l);
+  const tm=fmtTime(l.time||'12:30');
+  const ev={ main:{subject:`${l.clinicName} – ${n} – ${tm}`,s:T.s,e:T.e,body:detailsText(l)},
+    pre:{subject:`Travel to ${l.clinicName} (GP lunch at ${tm})`,s:T.t1,e:T.s,body:`1 hour travel to the GP lunch at ${l.clinicName}.\nLunch starts ${tm} (${n}).\n${l.address}\n${mapUrl(l.clinicName,l.address)}`},
+    post:{subject:`Travel back from ${l.clinicName}`,s:T.e,e:T.t2,body:`1 hour return travel after the GP lunch at ${l.clinicName}.`} }[which];
+  const to=recipients(l);
+  return host+'/calendar/0/deeplink/compose?'+qs({path:'/calendar/action/compose',rru:'addevent',subject:ev.subject,startdt:isoMel(ev.s),enddt:isoMel(ev.e),location:l.address||l.clinicName,body:ev.body,to:to.join(',')});
+}
+function elizaEmail(l){ const st=set(); const subject=`GP lunch allocated to you: ${l.clinicName} (${gpLabel(l)}) – ${fmtDate(l.date,{weekday:'short',day:'numeric',month:'short'})} ${fmtTime(l.time)}`; const body=`Hi Eliza,\n\nYou're booked in for this GP lunch:\n\n${detailsText(l)}\n\nA calendar invite is coming separately.\n\nThanks!`; return {to:st.elizaEmail||'',subject,body}; }
+function inviteBox(l){
+  if(!BOOKED.includes(l.status) || !l.date) return `<div class="panel"><h3>Calendar invites</h3><div class="muted" style="font-size:.9rem">Set the status to Booked and pick a date to create the Outlook invite for David.</div></div>`;
+  const T=slotTimes(l); const st=set(); const eliza=(l.attendees||[]).includes('Eliza Doumakis'); const em=eliza?elizaEmail(l):null;
+  const ol=(st.outlookHost==='live'?'https://outlook.live.com':'https://outlook.office.com');
+  return `<div class="invite-box"><h3>Outlook invites ${l.inviteSentAt?`<span class="pill s-done">Sent ${h(l.inviteSentAt)}</span>`:'<span class="pill s-wait">Not sent yet</span>'}</h3>
+   <div class="slots"><span>${hhmmMel(T.t1)}–${hhmmMel(T.s)}</span><span>Travel to clinic</span><b>${hhmmMel(T.s)}–${hhmmMel(T.e)}</b><b>GP lunch${l.gpCount?` · ${l.gpCount} GPs`:''}</b><span>${hhmmMel(T.e)}–${hhmmMel(T.t2)}</span><span>Travel back</span></div>
+   <div class="muted" style="font-size:.85rem">To: ${recipients(l).length?h(recipients(l).join(', ')):'<b class="flag">No email addresses yet – add them in Settings</b>'}</div>
+   <div class="row" style="flex-direction:column;align-items:stretch">
+     <a class="btn primary" href="${h(outlookUrl(l,'main'))}" target="_blank" rel="noopener">1 · Send GP lunch invite – ${h(l.clinicName)} – ${h(gpLabel(l))} – ${fmtTime(l.time||'12:30')}</a>
+     <a class="btn" href="${h(outlookUrl(l,'pre'))}" target="_blank" rel="noopener">2 · Send travel invite – 1 hr before (${hhmmMel(T.t1)}–${hhmmMel(T.s)})</a>
+     <a class="btn" href="${h(outlookUrl(l,'post'))}" target="_blank" rel="noopener">3 · Send travel invite – 1 hr after (${hhmmMel(T.e)}–${hhmmMel(T.t2)})</a>
+   </div>
+   <div class="row"><button class="btn small" type="button" data-act="copy-details">Copy details</button><button class="btn small" type="button" data-act="mark-invite">${l.inviteSentAt?'Mark as sent again':'Mark invite as sent'}</button></div>
+   ${eliza?`<div style="border-top:1px solid var(--line);padding-top:10px;display:flex;flex-direction:column;gap:8px"><b>Email for Eliza ${l.elizaEmailedAt?`<span class="pill s-done">Sent ${h(l.elizaEmailedAt)}</span>`:'<span class="pill s-wait">Not sent yet</span>'}</b>
+     <div class="muted" style="font-size:.85rem">To: ${em.to?h(em.to):'<b class="flag">Add Eliza\'s email in Settings</b>'}</div>
+     <div class="row"><a class="btn small primary" href="${h(ol+'/mail/deeplink/compose?'+qs({to:em.to,subject:em.subject,body:em.body}))}" target="_blank" rel="noopener">Open email in Outlook</a><a class="btn small" href="mailto:${h(encodeURIComponent(em.to))}?subject=${h(encodeURIComponent(em.subject))}&body=${h(encodeURIComponent(em.body))}">Mail app</a><button class="btn small" type="button" data-act="copy-eliza">Copy email</button><button class="btn small" type="button" data-act="mark-eliza">Mark emailed</button></div></div>`:''}
+   <div class="muted" style="font-size:.8rem">Each button opens a separate Outlook invite addressed to David (and Eliza if she's going) – press Send on each one. The planner can't see your mailbox, so tick “Mark … sent” once it's gone.</div>
+  </div>`;
+}
+function openInvites(l, afterSave, cancelled){
+  EDIT={l:JSON.parse(JSON.stringify(l)), orig:''};
+  const st=set(); const to=[st.davidEmail,(l.attendees||[]).includes('Eliza Doumakis')?st.elizaEmail:''].filter(Boolean).join(', ');
+  if(cancelled){
+    const subj=`CANCELLED: GP lunch – ${l.clinicName} ${fmtDate(l.date,{day:'numeric',month:'short'})}`; const body=`The GP lunch at ${l.clinicName} on ${fmtDate(l.date)} at ${fmtTime(l.time)} is cancelled. Please delete the calendar invite and travel blocks.\n\n${l.notes||''}`;
+    openSheet('Let the team know', `<div class="invite-box"><h3>${h(l.clinicName)} is cancelled</h3><p style="margin:0">An invite was sent for this lunch. Email ${to?h(to):'David (and Eliza)'} and delete the event in Outlook.</p><div class="row"><a class="btn primary" href="${h((st.outlookHost==='live'?'https://outlook.live.com':'https://outlook.office.com')+'/mail/deeplink/compose?'+qs({to,subject:subj,body}))}" target="_blank" rel="noopener">Open cancellation email</a></div><div class="copyable">${h(subj+'\n\n'+body)}</div></div>`, `<button class="btn primary" data-close>Done</button>`);
+    return;
+  }
+  openSheet('Send the invites', `<p style="margin:0">${afterSave?'Saved. ':''}<b>${h(l.clinicName)}</b> is booked for ${fmtDate(l.date)} at ${fmtTime(l.time)}. Send the calendar invite${(l.attendees||[]).includes('Eliza Doumakis')?' and Eliza\'s email':''} now.</p><div id="e-invite">${inviteBox(l)}</div>`, `<button class="btn" data-close>Later</button>`);
+}
+
+// --- clinic sheet ---
+function openClinic(id){
+  const c=S.clinics.get(id); if(!c) return;
+  const v=visitsFor(c); const L=lunchesFor(id).sort((a,b)=>(b.date||'').localeCompare(a.date||''));
+  const refd=(c.doctors||[]);
+  const body=`
+  <div class="tags">${tierPill(tierOf(c))}<span class="tag">${h(c.region||'Region not set')}</span>${c.noLunches?'<span class="tag">Doesn\'t do lunches</span>':''}${c.isNew?'<span class="tag">Found online</span>':''}${c.privateGP?'<span class="tag">Private GP</span>':''}</div>${c.worksAt?`<div class="banner" style="border-color:var(--line);background:var(--surface)"><b>Works at:</b> ${h(c.worksAt)}</div>`:''}
+  <div class="stats"><div class="stat"><div class="l">Referrals</div><div class="n">${c.refTotal||0}</div><div class="s">${YEARS.map(y=>y+': '+(c.refYears?.[y]||0)).join(' · ')}</div></div><div class="stat"><div class="l">Last attended</div><div class="n" style="font-size:1.1rem">${lastVisit(c)?(lastVisit(c).length>4?fmtDate(lastVisit(c),{day:'numeric',month:'short',year:'numeric'}):lastVisit(c)):'Never'}</div><div class="s">${v.length} visit${v.length===1?'':'s'} on record</div></div></div>
+  <div class="row" style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn primary" data-start="${h(c.id)}">Plan a GP lunch</button><a class="btn" href="${mapUrl(c.name,c.address)}" target="_blank" rel="noopener">Google Maps ↗</a>${c.website?`<a class="btn" href="${h(c.website)}" target="_blank" rel="noopener">Website ↗</a>`:''}</div>
+  <form class="fs" id="clinic-form"><h3 class="full">Details</h3>
+    <div class="field full"><label for="c-name">Name</label><input id="c-name" value="${h(c.name)}"></div>
+    <div class="field full"><label for="c-addr">Address</label><input id="c-addr" value="${h(c.address)}"></div>
+    <div class="field"><label for="c-suburb">Suburb</label><input id="c-suburb" value="${h(c.suburb)}"></div>
+    <div class="field"><label for="c-region">Region</label><select id="c-region">${['','Bentleigh','Hawthorn East','Other'].map(r=>`<option value="${r}" ${c.region===r?'selected':''}>${r||'Not set'}</option>`).join('')}</select></div>
+    <div class="field"><label for="c-phone">Phone</label><input id="c-phone" value="${h(c.phone)}"></div>
+    <div class="field"><label for="c-contact">Contact person</label><input id="c-contact" value="${h(c.contact)}"></div>
+    <div class="field full"><label for="c-email">Email</label><input id="c-email" value="${h(c.email)}"></div>
+    <div class="field full"><label for="c-web">Website</label><input id="c-web" value="${h(c.website)}"></div>
+    <div class="field"><label for="c-tier">Tier</label><select id="c-tier"><option value="">Automatic (${h(tierOf({...c,tierOverride:''}))})</option>${['High','Medium','Low','Not referred yet'].map(t=>`<option ${c.tierOverride===t?'selected':''}>${t}</option>`).join('')}</select></div>
+    <div class="field"><span class="lbl">Flyer</span><div class="checks"><label><input type="checkbox" id="c-flyer" ${c.flyerNeeded?'checked':''}> Needs a flyer</label><label><input type="checkbox" id="c-flyerdone" ${c.flyerDone?'checked':''}> Dropped off</label></div></div>
+    <div class="field full"><label for="c-notes">Clinic notes</label><textarea id="c-notes">${h(c.notes)}</textarea></div>
+    <div class="full"><button class="btn primary" type="submit">Save clinic</button></div>
+  </form>
+  <div class="panel"><h3>Doctors <span class="muted" style="font-size:.85rem">· ${refd.length}</span></h3>${refd.length?`<div class="doclist">${refd.map(d=>`<div class="row"><span>Dr ${h(d.name)} ${d.web&&!d.refs?'<span class="tag">clinic website</span>':''}</span><span class="num yr">${d.refs?d.refs+' ref'+(d.refs>1?'s':''):''}</span>${tierPill(docTier(d.refs))}</div>`).join('')}</div>${c.doctorsUrl?`<a href="${h(c.doctorsUrl)}" target="_blank" rel="noopener" style="font-size:.85rem">Doctor list source ↗</a>`:''}`:'<div class="muted">No doctors recorded.</div>'}
+   <div style="display:flex;gap:8px"><input id="c-newdoc" class="search" placeholder="Add a doctor (name only)"><button class="btn small" type="button" data-act="add-doc">Add</button></div></div>
+  <div class="panel"><h3>Visit history</h3>${v.length?`<div class="history">${v.map(x=>`<div><div class="when">${x.date?fmtDate(x.date,{day:'numeric',month:'short',year:'numeric'}):(x.year||'Before 2025')} · ${h(x.source)}</div>${h(x.note)}</div>`).join('')}</div>`:'<div class="muted">No visits recorded.</div>'}
+    <div style="display:flex;gap:8px;flex-wrap:wrap"><input id="c-vdate" type="date" class="search" style="flex:0 1 170px" aria-label="Visit date"><input id="c-vnote" class="search" placeholder="Note (optional)"><button class="btn small" type="button" data-act="add-visit">Add past visit</button></div></div>
+  <div class="panel"><h3>Notes history</h3>${clinicHistory(c,'')||'<div class="muted">No notes yet.</div>'}
+    <div style="display:flex;gap:8px"><input id="c-newnote" class="search" placeholder="Add a note for next time"><button class="btn small" type="button" data-act="add-note">Add</button></div></div>
+  <div class="panel"><h3>Lunches &amp; outreach</h3>${L.length?`<div class="list">${L.map(lunchCard).join('')}</div>`:'<div class="muted">None yet.</div>'}</div>
+  <div class="muted" style="font-size:.8rem">Sources: ${h((c.sources||[]).join(', '))}</div>`;
+  openSheet(c.name, body);
+  S._clinic=id;
+}
+async function saveClinicForm(){
+  const c=S.clinics.get(S._clinic); const v=id=>$('#'+id).value.trim();
+  const upd={name:v('c-name')||c.name,address:v('c-addr'),suburb:v('c-suburb'),region:$('#c-region').value,phone:v('c-phone'),contact:v('c-contact'),email:v('c-email'),website:v('c-web'),tierOverride:$('#c-tier').value,flyerNeeded:$('#c-flyer').checked,flyerDone:$('#c-flyerdone').checked,notes:$('#c-notes').value};
+  if(upd.flyerNeeded && !c.flyerReason) upd.flyerReason='Added manually';
+  if(await save('clinics/'+c.id,upd,true)){ toast('Clinic saved'); Object.assign(c,upd); }
+}
+
+function openNewClinic(){
+  openSheet('Add a GP clinic', `<form class="fs" id="newclinic-form">
+   <div class="field full"><label for="n-name">Clinic name</label><input id="n-name" required></div>
+   <div class="field full"><label for="n-addr">Address</label><input id="n-addr" placeholder="Street, suburb, postcode"></div>
+   <div class="field"><label for="n-suburb">Suburb</label><input id="n-suburb"></div>
+   <div class="field"><label for="n-region">Region</label><select id="n-region"><option value="">Not set</option><option>Bentleigh</option><option>Hawthorn East</option><option>Other</option></select></div>
+   <div class="field"><label for="n-phone">Phone</label><input id="n-phone"></div>
+   <div class="field"><label for="n-email">Email</label><input id="n-email"></div>
+  </form>`, `<button class="btn" data-close>Cancel</button><button class="btn primary" data-act="save-new-clinic">Add clinic</button>`);
+}
+async function saveNewClinic(){
+  const v=id=>$('#'+id).value.trim(); const name=v('n-name'); if(!name){ toast('Add the clinic name'); return; }
+  if([...S.clinics.values()].some(c=>c.name.toLowerCase()===name.toLowerCase())){ toast('That clinic is already in the database'); return; }
+  let id=slug(name); while(S.clinics.has(id)) id+='-2';
+  const c={id,name,address:v('n-addr'),suburb:v('n-suburb'),region:$('#n-region').value,phone:v('n-phone'),email:v('n-email'),website:'',contact:'',refTotal:0,refYears:{},lastReferral:null,doctors:[],visits:[],flyerNeeded:false,flyerDone:false,flyerReason:'',noLunches:false,notes:'',outreachNotes:'',sources:['Added in planner'],isNew:false,noteLog:[],tierOverride:'',contacted:false};
+  if(await save('clinics/'+id,c)){ S.clinics.set(id,c); toast('Clinic added'); openClinic(id); }
+}
+
+// --- todo sheet ---
+function openTodo(id){
+  const x = id ? {...S.todos.get(id)} : {id:uid('t'),title:'',detail:'',priority:'Medium',category:'',clinicId:'',due:'',done:false,owner:'',createdAt:todayStr(),_new:true};
+  S._todo=x;
+  openSheet(x._new?'New task':'Edit task', `<form class="fs" id="todo-form">
+   <div class="field full"><label for="t-title">Task</label><input id="t-title" value="${h(x.title)}" required></div>
+   <div class="field full"><label for="t-detail">Details</label><textarea id="t-detail">${h(x.detail)}</textarea></div>
+   <div class="field"><label for="t-prio">Priority</label><select id="t-prio">${['High','Medium','Low'].map(p=>`<option ${x.priority===p?'selected':''}>${p}</option>`).join('')}</select></div>
+   <div class="field"><label for="t-due">Due</label><input id="t-due" type="date" value="${h(x.due)}"></div>
+   <div class="field"><label for="t-owner">Owner</label><input id="t-owner" list="owner-list" value="${h(x.owner)}"><datalist id="owner-list">${['Sienna',...PEOPLE,'Practice manager'].map(p=>`<option value="${p}">`).join('')}</datalist></div>
+   <div class="field"><label for="t-cat">Category</label><input id="t-cat" value="${h(x.category)}" placeholder="Booking, Follow-up…"></div>
+  </form>${x._new?'':'<div><button class="btn small danger" data-act="del-todo">Delete task</button><span id="del-confirm"></span></div>'}`, `<button class="btn" data-close>Cancel</button><button class="btn primary" data-act="save-todo">Save</button>`);
+}
+
+// ---------- events ----------
+document.addEventListener('click', async e=>{
+  const t=e.target.closest('[data-tab],[data-f],[data-open-lunch],[data-open-clinic],[data-act],[data-close],[data-close-bg],[data-cal],[data-sort],[data-csort],[data-start],[data-edit-todo],[data-rmfu],[data-copy-el],[data-stop]');
+  if(!t) return;
+  if(t.hasAttribute('data-stop')){ e.stopPropagation(); return; }
+  if(t.hasAttribute('data-close-bg')){ if(e.target===t) closeSheet(); return; }
+  if(t.dataset.tab){ S.tab=t.dataset.tab; try{localStorage.setItem('gpl-tab',S.tab);}catch(_){} history.replaceState(null,'','#'+S.tab); render(); window.scrollTo(0,0); return; }
+  if(t.dataset.f){ S.f[t.dataset.f] = (S.f[t.dataset.f]===t.dataset.v && t.dataset.f==='tier') ? '' : t.dataset.v; render(); return; }
+  if(t.dataset.cal!=null){ const d=+t.dataset.cal; if(d===0){ const td=todayStr(); S.f.calY=+td.slice(0,4); S.f.calM=+td.slice(5,7)-1; } else { S.f.calM+=d; if(S.f.calM<0){S.f.calM=11;S.f.calY--;} if(S.f.calM>11){S.f.calM=0;S.f.calY++;} } render(); return; }
+  if(t.dataset.sort){ const k=t.dataset.sort; S.f.sort = S.f.sort.k===k?{k,d:-S.f.sort.d}:{k,d:k==='name'?1:-1}; render(); return; }
+  if(t.dataset.csort){ const k=t.dataset.csort; S.f.csort = S.f.csort.k===k?{k,d:-S.f.csort.d}:{k,d:k==='name'?1:-1}; render(); return; }
+  if(t.dataset.openLunch){ e.preventDefault(); openLunch(t.dataset.openLunch); return; }
+  if(t.dataset.openClinic){ e.preventDefault(); openClinic(t.dataset.openClinic); return; }
+  if(t.dataset.start){ const c=S.clinics.get(t.dataset.start); const ex=lunchesFor(c.id).find(l=>!['Completed','Cancelled'].includes(l.status)); if(ex){ openLunch(ex.id); toast('This clinic already has an open booking'); } else openLunch(null,newLunch(c)); return; }
+  if(t.dataset.editTodo){ openTodo(t.dataset.editTodo); return; }
+  if(t.dataset.copyEl){ const el=document.getElementById(t.dataset.copyEl); copy(el.textContent, el); return; }
+  if(t.dataset.rmfu){ EDIT.l.followUps=EDIT.l.followUps.filter(x=>x.id!==t.dataset.rmfu); $('#e-fus').innerHTML=fuList(EDIT.l); return; }
+  if(t.hasAttribute('data-close')){ closeSheet(); return; }
+  const a=t.dataset.act;
+  if(a==='new-lunch') openLunch(null,newLunch(null));
+  if(a==='save-lunch') saveLunch();
+  if(a==='add-fu'){ const v=$('#e-newfu').value.trim(); if(v){ EDIT.l.followUps=[...(EDIT.l.followUps||[]),{id:uid('f'),text:v,done:false}]; $('#e-fus').innerHTML=fuList(EDIT.l); $('#e-newfu').value=''; } }
+  if(a==='del-lunch'){ const c=$('#del-confirm'); if(!c.innerHTML){ c.innerHTML=' <button class="btn small danger" data-act="del-lunch-yes">Yes, delete</button>'; } }
+  if(a==='del-lunch-yes'){ if(await del('lunches/'+EDIT.l.id)){ S.lunches.delete(EDIT.l.id); toast('Deleted'); closeSheet(); } }
+  if(a==='copy-details'){ copy(detailsText(EDIT.l)); }
+  if(a==='copy-eliza'){ const m=elizaEmail(EDIT.l); copy(`To: ${m.to}\nSubject: ${m.subject}\n\n${m.body}`); }
+  if(a==='mark-invite' || a==='mark-eliza'){ const field=a==='mark-invite'?'inviteSentAt':'elizaEmailedAt'; const stamp=new Date().toLocaleDateString('en-AU',{day:'numeric',month:'short'}); const l=S.lunches.get(EDIT.l.id); if(!l){ toast('Save the lunch first'); return; } if(await save('lunches/'+l.id,{[field]:stamp},true)){ EDIT.l[field]=stamp; l[field]=stamp; $('#e-invite').innerHTML=inviteBox(EDIT.l); toast('Marked as sent'); } }
+  if(a==='new-clinic') openNewClinic();
+  if(a==='save-new-clinic') saveNewClinic();
+  if(a==='add-doc'){ const n=$('#c-newdoc').value.trim().replace(/^dr\.?\s+/i,''); if(!n) return; const c=S.clinics.get(S._clinic); const docs=[...(c.doctors||[]),{name:n,refs:0,years:{},last:null,source:'Added in planner',web:false}]; if(await save('clinics/'+c.id,{doctors:docs},true)){ c.doctors=docs; openClinic(c.id); } }
+  if(a==='add-visit'){ const d=$('#c-vdate').value; if(!d){ toast('Pick the visit date'); return; } const c=S.clinics.get(S._clinic); const vis=[...(c.visits||[]),{date:d,year:+d.slice(0,4),note:$('#c-vnote').value.trim(),source:'Added in planner'}]; if(await save('clinics/'+c.id,{visits:vis},true)){ c.visits=vis; openClinic(c.id); } }
+  if(a==='add-note'){ const n=$('#c-newnote').value.trim(); if(!n) return; const c=S.clinics.get(S._clinic); const log=[...(c.noteLog||[]),{date:todayStr(),author:'Note',text:n}]; if(await save('clinics/'+c.id,{noteLog:log},true)){ c.noteLog=log; openClinic(c.id); } }
+  if(a==='new-todo') openTodo(null);
+  if(a==='save-todo'){ const x=S._todo; x.title=$('#t-title').value.trim(); if(!x.title){ toast('Give the task a name'); return; } x.detail=$('#t-detail').value; x.priority=$('#t-prio').value; x.due=$('#t-due').value; x.owner=$('#t-owner').value.trim(); x.category=$('#t-cat').value.trim(); delete x._new; if(await save('todos/'+x.id,x)){ S.todos.set(x.id,x); toast('Saved'); closeSheet(); } }
+  if(a==='del-todo'){ const c=$('#del-confirm'); if(!c.innerHTML) c.innerHTML=' <button class="btn small danger" data-act="del-todo-yes">Yes, delete</button>'; }
+  if(a==='del-todo-yes'){ if(await del('todos/'+S._todo.id)){ S.todos.delete(S._todo.id); closeSheet(); } }
+});
+document.addEventListener('change', async e=>{
+  const t=e.target;
+  if(t.dataset.fsel){ S.f[t.dataset.fsel]=t.value; render(); return; }
+  if(t.dataset.todo){ const x=S.todos.get(t.dataset.todo); if(await save('todos/'+x.id,{done:t.checked},true)){ x.done=t.checked; render(); } return; }
+  if(t.dataset.flyer){ const c=S.clinics.get(t.dataset.flyer); if(await save('clinics/'+c.id,{flyerDone:t.checked},true)){ c.flyerDone=t.checked; toast(t.checked?'Marked dropped off':'Moved back to the list'); render(); } return; }
+  if(t.dataset.fu){ const [lid,fid]=t.dataset.fu.split('|'); const l=S.lunches.get(lid); const fus=(l.followUps||[]).map(x=>x.id===fid?{...x,done:t.checked}:x); if(await save('lunches/'+lid,{followUps:fus},true)){ l.followUps=fus; render(); } return; }
+  if(t.dataset.efu){ EDIT.l.followUps=EDIT.l.followUps.map(x=>x.id===t.dataset.efu?{...x,done:t.checked}:x); $('#e-fus').innerHTML=fuList(EDIT.l); return; }
+  if(t.id==='e-clinic'){ const c=[...S.clinics.values()].find(c=>c.name.toLowerCase()===t.value.trim().toLowerCase()); if(c){ if(!$('#e-addr').value) $('#e-addr').value=c.address||''; if(!$('#e-cphone').value) $('#e-cphone').value=c.phone||''; if(!$('#e-cemail').value) $('#e-cemail').value=c.email||''; if(!$('#e-cname').value) $('#e-cname').value=c.contact||''; } updateMap(); }
+  if(t.id==='e-addr') updateMap();
+  if(t.id==='e-date' && t.value && OUTREACH.concat(['Not contacted']).includes($('#e-status').value)){ $('#e-status').value='Booked'; toast('Status set to Booked'); }
+  if(['e-status','e-date','e-time','e-gps'].includes(t.id) || t.name==='e-att' || t.name==='e-diet'){ readLunchForm(); $('#e-invite').innerHTML=inviteBox(EDIT.l); }
+});
+function updateMap(){ const n=$('#e-clinic').value.trim(), a=$('#e-addr').value.trim(); $('#e-maplink').innerHTML=(n||a)?`<a href="${mapUrl(n,a)}" target="_blank" rel="noopener">Open in Google Maps ↗</a>`:''; }
+let inT=null;
+document.addEventListener('input', e=>{ const t=e.target; if(t.dataset.fin){ S.f[t.dataset.fin]=t.value; clearTimeout(inT); inT=setTimeout(render,150); } });
+document.addEventListener('submit', async e=>{
+  e.preventDefault();
+  if(e.target.id==='clinic-form') saveClinicForm();
+  if(e.target.id==='newclinic-form') saveNewClinic();
+  if(e.target.id==='todo-form') document.querySelector('[data-act="save-todo"]').click();
+  if(e.target.id==='settings-form'){ const n=id=>+$('#'+id).value; const upd={davidEmail:$('#s-david').value.trim(),elizaEmail:$('#s-eliza').value.trim(),outlookHost:$('#s-host').value,travelMinutes:n('s-travel'),lunchMinutes:n('s-len'),practiceHigh:n('s-ph'),practiceMedium:n('s-pm'),doctorHigh:n('s-dh'),doctorMedium:n('s-dm'),updatedAt:todayStr()}; if(upd.practiceMedium>=upd.practiceHigh||upd.doctorMedium>=upd.doctorHigh){ toast('“Medium from” must be lower than “High from”'); return; } if(await save('settings/main',{...S.settings,...upd})){ toast('Settings saved'); } }
+});
+document.addEventListener('keydown', e=>{ if(e.key==='Escape' && $('.overlay')) closeSheet(); if(e.key==='Enter' && e.target.id==='e-newfu'){ e.preventDefault(); document.querySelector('[data-act="add-fu"]').click(); } });
+
+boot();
+})();
+</script>
+
+</body>
+</html>

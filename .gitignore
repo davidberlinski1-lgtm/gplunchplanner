@@ -1,0 +1,5 @@
+__pycache__/
+*.xlsx
+*.csv
+# Referral data stays on this computer; run it in Supabase, don't publish it
+supabase/seed-referrals.sql
